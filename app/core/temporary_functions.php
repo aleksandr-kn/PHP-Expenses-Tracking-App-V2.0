@@ -62,3 +62,7 @@ function random_str(
     }
     return implode('', $pieces);
 }
+
+function esc($args) {
+  return htmlspecialchars($args, ENT_QUOTES, 'UTF-8');
+}
