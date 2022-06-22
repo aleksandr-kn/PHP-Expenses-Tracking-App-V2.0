@@ -2,7 +2,8 @@
     "require": {
         "ext-pdo": "*",
         "vlucas/phpdotenv": "^5.3",
-        "dompdf/dompdf": "^1.2"
+        "dompdf/dompdf": "^1.2",
+        "thiagoalessio/tesseract_ocr": "^2.12"
     },
     "autoload": {
         "psr-4": {

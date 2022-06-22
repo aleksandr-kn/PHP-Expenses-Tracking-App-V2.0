@@ -2,6 +2,8 @@
 
 require_once __DIR__.'/../core/PDFHandler.php';
 
+use thiagoalessio\TesseractOCR\TesseractOCR;
+
 class Controller_Test extends Controller
 {
   function action_index()
@@ -87,5 +89,21 @@ class Controller_Test extends Controller
 
     $pdfHanlder->generatePDF($html);
     // echo $html;
+  }
+
+  function action_tesseract() {
+    // foreach((new TesseractOCR())->availableLanguages() as $lang) echo $lang; 
+    echo "<pre>";
+    echo (new TesseractOCR('images/tesseract/big-check.jpg'))
+      ->lang('rus')
+      ->run();
+    echo "</pre>";
+
+    // $output=null;  
+    // $retval=null;
+    // exec('/usr/bin/tesseract', $output, $retval);
+    // echo "Вернёт статус $retval и значение:\n";
+    // echo exec('/usr/bin/tesseract');
+    // print_r($output);
   }
 }
