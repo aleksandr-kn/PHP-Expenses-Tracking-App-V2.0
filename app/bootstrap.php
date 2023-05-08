@@ -17,7 +17,7 @@ define('ROOT', '/var/www/');
 
 require_once 'core/route.php';
 
-//require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 Route::start(); // запускаем маршрутизатор
 
