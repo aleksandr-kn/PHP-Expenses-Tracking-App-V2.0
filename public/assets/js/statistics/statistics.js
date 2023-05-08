@@ -28,14 +28,6 @@ function get_filtered_spendings() {
 
   var [min_value, max_value] = min_max_sum.split(",");
 
-  // console.log("first date " + first_date);
-  // console.log("last date " + last_date)
-  // console.log("category id " + current_spending_category_id)
-  // console.log("source id " + current_spending_source_id)
-  // console.log("subcategory id " + current_spending_subcategory_id)
-  // console.log("min " + min_value)
-  // console.log("max " + max_value)
-
   $.ajax({
     type: "POST",
     url: "/profile/get_filtered_spendings",
@@ -52,8 +44,6 @@ function get_filtered_spendings() {
       $(".all-spendings-list").empty();
       $(".filtered-spendings-card").show();
       var result = jQuery.parseJSON(result);
-      // useful
-      // console.log(JSON.stringify(result, null, 2))
 
       if (result.status == false) {
         $(".bar-card").hide();

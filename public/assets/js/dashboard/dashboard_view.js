@@ -39,15 +39,16 @@ function add_new_spending() {
       new_spending_source_id: current_spendings_source_id,
     },
     success: function (result) {
+      let jsonResponse = null;
       try {
-        var result = JSON.parse(result);
+        jsonResponse = JSON.parse(result);
       } catch (error) {
         UI.showAlert(
           "К сожалению не удалось удалить категорию",
           "bg-gradient-danger"
         );
       }
-      if (result.status == true) {
+      if (jsonResponse && jsonResponse.status == true) {
         current_date = get_current_date();
         current_spending_id = result.inserted_id;
 
@@ -241,7 +242,6 @@ function get_this_week_spendings() {
     data: {},
     success: function (result) {
       var dataObj = jQuery.parseJSON(result);
-      console.log(dataObj);
       if (dataObj.status === false) {
         $(".chart").hide();
         return;
@@ -613,7 +613,6 @@ $(document).ready(function () {
   var today = new Date().toISOString().slice(0, 10);
 
   $("#radioBtn a").on("click", function () {
-    // console.log(this);
     var sel = $(this).data("source-id");
 
     $(".source-select__btn").removeClass("active").addClass("notActive");
