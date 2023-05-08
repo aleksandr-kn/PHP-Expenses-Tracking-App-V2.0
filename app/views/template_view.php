@@ -5,16 +5,18 @@
 	<!-- Required meta tags -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<title>diplom</title>
+	<title>Moneysaver</title>
 
+	<!-- Стили для бутстаповской темы -->
 	<link rel="stylesheet" href="/assets/vendors/mdi/css/materialdesignicons.min.css">
 	<link rel="stylesheet" href="/assets/vendors/css/vendor.bundle.base.css">
 	<link rel="stylesheet" href="/assets/css/style.css">
-  
-  <!-- Styles for template page -->
+	<!-- Стили для бутстаповской темы END -->
+
+  	<!-- Стили текущего layout-а -->
 	<link rel="stylesheet" href="/assets/css/template.css">
 
-	<!-- loading current view styles -->
+	<!-- Стили текущего View файла -->
 	<?php $styles = load_styles($content_view_name);
 	if ($styles) : ?>
 		<?php foreach ($styles as $style) : ?>
@@ -22,18 +24,19 @@
 		<? endforeach ?>
 	<?php endif; ?>
 	<!-- End layout styles -->
+
 	<link rel="shortcut icon" href="/assets/images/favicon.ico" />
 
+	<!-- скрипты для бутстраповской темы -->
 	<script src="/assets/vendors/js/vendor.bundle.base.js"></script>
 	<!-- endinject -->
 	<!-- Plugin js for this page -->
 	<script src="/assets/vendors/chart.js/Chart.min.js"></script>
 	<!-- End plugin js for this page -->
-	<!-- inject:js -->
+
 	<script src="/assets/js/off-canvas.js"></script>
 	<script src="/assets/js/hoverable-collapse.js"></script>
 	<script src="/assets/js/misc.js"></script>
-	<!-- endinject -->
 	<!-- Custom js for this page -->
 	<script src="/assets/js/dashboard.js"></script>
 	<script src="/assets/js/todolist.js"></script>
@@ -42,10 +45,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/css/bootstrap-slider.min.css">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/11.0.2/bootstrap-slider.min.js"></script>
 
+	<!-- Общие для всех страниц скрипты -->
 	<script src="/assets/js/common.js"></script>
 
 
-	<!-- loading all scripts for current view -->
+	<!-- Скрипты текущей страницы -->
 	<?php $scripts = load_scripts($content_view_name);
 	if ($scripts) : ?>
 		<?php foreach ($scripts as $script) : ?>
@@ -69,14 +73,14 @@
 		<?php if (Session::is_logged_in()) : ?>
 			<nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
 				<div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-start">
-          <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+					<button class="navbar__desktop-toggler navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
 						<span class="mdi mdi-menu"></span>
 					</button>
 					<!-- <a class="navbar-brand brand-logo" href="/profile/"><img src="/public/assets/images/logo.svg" alt="logo" /></a> -->
 					<!-- <a class="navbar-brand brand-logo-mini" href="/profile/"><img src="/public/assets/images/logo-mini.svg" alt="logo" /></a> -->
 				</div>
 				<div class="navbar-menu-wrapper d-flex align-items-stretch">
-					
+
 					<ul class="navbar-nav navbar-nav-right">
 						<li class="nav-item nav-profile dropdown">
 							<a class="nav-link dropdown-toggle" id="profileDropdown" href="/profile" data-toggle="dropdown" aria-expanded="false">
@@ -101,7 +105,7 @@
 								<i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
 							</a>
 						</li>
-						
+
 						<li class="nav-item nav-logout d-none d-lg-block">
 							<a class="nav-link" href="/login/logout/">
 								<i class="mdi mdi-power"></i>
