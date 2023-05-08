@@ -48,14 +48,16 @@
   font-size: 30px;
 }
 
-#get-statistics {
+#get-statistics,
+#get-pdf {
   margin-top: 15px;
   color: #808080;
   background-color: #f2edf3;
   border: none;
   font-size: 18px;
 }
-#get-statistics:hover {
+#get-statistics:hover,
+#get-pdf:hover {
   background-color: #3e4b5b;
   color: #fff;
 }
