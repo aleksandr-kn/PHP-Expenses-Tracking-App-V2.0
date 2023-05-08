@@ -114,4 +114,14 @@
         min-width: 0;
         width: 100%;
     }
+    .pagination .pagination-prev,
+    .pagination .pagination-current,
+    .pagination .pagination-next {
+        padding: 0.875rem 1.25rem;
+    }
+    .pagination .pagination-prev,
+    .pagination .pagination-next {
+        width: 135px;
+        border-radius: 0.1875rem;
+    }
 }

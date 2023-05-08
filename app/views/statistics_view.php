@@ -42,7 +42,7 @@
         </div>
       </div> -->
       <div class="row">
-        <div class="col-12 col-md-6 stretch-card grid-margin">
+        <div class="col-12 col-xxl-6 stretch-card grid-margin">
           <div class="card h-100 bg-gradient-primary card-img-holder text-white">
             <div class="card-body spendings">
               <h3 class="font-weight-normal mb-3 spendings__title">
@@ -71,7 +71,7 @@
                   <div class="subcategories-wrap">
                     <p class="spendings__category-title" style="padding-top: 35px;">Выберете дополнительную категорию</p>
                     <select id="new_spending_subcategory">
-                      
+
                     </select>
                   </div>
                 </div>
@@ -161,7 +161,7 @@
                     </tr>
                   </thead>
                   <tbody class="all-spendings-list">
-                   
+
                   </tbody>
                 </table>
               </div>
@@ -169,7 +169,7 @@
           </div>
         </div>
       </div>
-      
+
     <!-- content-wrapper ends -->
     <!-- partial:../../partials/_footer.html -->
   </div>

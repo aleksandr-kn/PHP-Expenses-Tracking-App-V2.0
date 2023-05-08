@@ -1,3 +1,12 @@
+.page-body-wrapper {
+    max-height: 100vh;
+}
+
+.page-body-wrapper .content-wrapper,
+.page-body-wrapper .siderbar {
+    overflow-y: scroll;
+}
+
 .alert-popup {
     transform: translateY(-100%);
     position: fixed;
@@ -30,6 +39,14 @@
     cursor: pointer;
 }
 
+.navbar .dropdown .dropdown-menu .dropdown-item:hover {
+    color: #16181b;
+}
+
+.navbar .nav-link {
+    cursor: pointer;
+}
+
 @media (max-width: 991px) {
     .navbar__desktop-toggler {
         display: none;
@@ -40,6 +57,9 @@
 }
 
 @media (max-width: 575px) {
+    .page-body-wrapper .content-wrapper {
+        overflow-x: hidden;
+    }
     .content-wrapper {
         padding: 1.75rem 0.75rem;
     }
