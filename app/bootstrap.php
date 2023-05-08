@@ -13,11 +13,11 @@ require_once 'utility/Session.php';
 require_once 'utility/Testing.php';
 
 define('SITE_NAME', $_SERVER['SERVER_NAME']);
-define('ROOT', '/var/www/');  
+define('ROOT', '/var/www/');
 
 require_once 'core/route.php';
 
-require_once __DIR__ . '/../vendor/autoload.php';
+//require_once __DIR__ . '/../vendor/autoload.php';
 
 Route::start(); // запускаем маршрутизатор
 
