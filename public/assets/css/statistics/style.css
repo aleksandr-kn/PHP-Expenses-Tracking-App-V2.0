@@ -35,7 +35,7 @@
   position: absolute;
   content: '';
   height: 2px;
-  bottom: 0px; 
+  bottom: 0px;
   margin-right:auto;
   left: 0;
   right: 0;
@@ -131,4 +131,16 @@
 
 .slider.slider-horizontal {
   width: 70% !important;
+}
+
+@media (max-width: 575px) {
+  .spendings__inner-right,
+  .spendings__inner-left {
+    width: 100%;
+  }
+  #new_spending_category,
+  #new_spending_subcategory {
+    min-width: 0;
+    width: 100%;
+  }
 }
