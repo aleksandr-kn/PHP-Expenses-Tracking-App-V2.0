@@ -11,8 +11,8 @@ class Controller_Test extends Controller
     // Session::start();
 
     $dbTest = create_connection();
-    
-    
+
+
     // prettyPrint($rndUsername);
 
 
@@ -34,8 +34,8 @@ class Controller_Test extends Controller
     // Session::start();
 
     $dbTest = create_connection();
-    
-    
+
+
     // prettyPrint($rndUsername);
 
 
@@ -58,7 +58,7 @@ class Controller_Test extends Controller
     // Session::start();
 
     $dbTest = create_connection();
-    
+
 
     //Explain
     $explainSQL = "EXPLAIN SELECT * FROM spendings WHERE name='testUsername9'";
@@ -75,14 +75,14 @@ class Controller_Test extends Controller
     echo "SQL: " . $sql;
     echo "<br>";
     echo "Поиск занял: " . $duration . " секунд";
-    
+
     // $this->view->generate('test_view.php', 'template_view.php');
   }
 
   function action_testpdf() {
     Testing::prettyPrint($_SERVER['HTTP_HOST']);
     $pdfHanlder = new PDFHandler();
-    
+
     $templatePath = ROOT . "app/views/PDF/test.php";
 
     $html = $pdfHanlder->populateTemplate($templatePath, ["testKey" => "123"]);
@@ -92,18 +92,28 @@ class Controller_Test extends Controller
   }
 
   function action_tesseract() {
-    // foreach((new TesseractOCR())->availableLanguages() as $lang) echo $lang; 
+    // foreach((new TesseractOCR())->availableLanguages() as $lang) echo $lang;
     echo "<pre>";
     echo (new TesseractOCR('images/tesseract/big-check.jpg'))
       ->lang('rus')
       ->run();
     echo "</pre>";
 
-    // $output=null;  
+    // $output=null;
     // $retval=null;
     // exec('/usr/bin/tesseract', $output, $retval);
     // echo "Вернёт статус $retval и значение:\n";
     // echo exec('/usr/bin/tesseract');
     // print_r($output);
+  }
+
+  public function action_search_token() {
+      $apiKey = 'AYV5YWAEN97JXDIY';
+
+      $companyName = $_GET['company_name'];
+
+      $json = file_get_contents("https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords={$companyName}&apikey={$apiKey}");
+
+      prettyPrint(json_decode($json, true));
   }
 }
