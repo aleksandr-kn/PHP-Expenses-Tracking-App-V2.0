@@ -5,11 +5,6 @@ class Controller_Login extends Controller
 	function __construct()
 	{
 		Session::start();
-    
-		// if (Session::is_logged_in()) {
-		// 	header('Location:/profile/');
-		// 	exit();
-		// }
 
 		$this->model = new Model_Login();
 		$this->view = new View();
@@ -17,7 +12,7 @@ class Controller_Login extends Controller
 
 	function action_index()
 	{
-    if (Session::is_logged_in()) {
+        if (Session::is_logged_in()) {
 			header('Location:/profile/');
 			exit();
 		}
@@ -27,7 +22,7 @@ class Controller_Login extends Controller
 
 	function action_process()
 	{
-    if (Session::is_logged_in()) {
+        if (Session::is_logged_in()) {
 			header('Location:/profile/');
 			exit();
 		}
