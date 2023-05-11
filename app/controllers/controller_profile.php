@@ -36,7 +36,7 @@ class Controller_Profile extends Controller
 
     // Testing::prettyPrint($currentPageSpendings);
     echo json_encode($currentPageSpendings, JSON_UNESCAPED_UNICODE);
-  } 
+  }
 
   function action_statistics()
   {
@@ -110,10 +110,10 @@ class Controller_Profile extends Controller
       $new_spending_source_id = $_POST["new_spending_source_id"];
 
       $result = $this->model->add_spending(
-        $new_spending_name, 
-        $new_spending_amount, 
-        $new_spending_category_id, 
-        $new_spending_subcategory_id, 
+        $new_spending_name,
+        $new_spending_amount,
+        $new_spending_category_id,
+        $new_spending_subcategory_id,
         $new_spending_source_id
       );
       echo json_encode($result, JSON_UNESCAPED_UNICODE);
@@ -221,7 +221,7 @@ class Controller_Profile extends Controller
       // @var_dump($max_sum);
 
       $result = $this->model->get_filtered_spendings(
-        $first_date, 
+        $first_date,
         $last_date,
         $spending_category_id,
         $spending_subcategory_id,
@@ -245,11 +245,11 @@ class Controller_Profile extends Controller
     $max_sum = $_GET['max_sum'];
 
     if ($spending_subcategory_id === "null") {
-      $spending_subcategory_id = null;  
+      $spending_subcategory_id = null;
     }
 
     $result = $this->model->get_filtered_spendings(
-      $first_date, 
+      $first_date,
       $last_date,
       $spending_category_id,
       $spending_subcategory_id,
@@ -258,7 +258,7 @@ class Controller_Profile extends Controller
       $max_sum
     );
 
-    unset($result["status"]); 
+    unset($result["status"]);
 
     require_once __DIR__ . '/../core/PDFHandler.php';
     $pdfHanlder = new PDFHandler();
@@ -274,8 +274,8 @@ class Controller_Profile extends Controller
         <td>{$spending['spending_date']}</td>
         <td>{$spending['category_name']}</td>
         <td>{$spending['subcategory_name']}</td>
-        </tr>"; 
-    } 
+        </tr>";
+    }
 
     $html = $pdfHanlder->populateTemplate($templatePath, ["spendings" => $spendings, "name" => "Расходы по выбранным параметрам"]);
     $pdfHanlder->generatePDF($html);

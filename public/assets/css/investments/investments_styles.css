@@ -1,0 +1,57 @@
+.investments {
+
+}
+
+.investments__input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.investments__input {
+    display: inline-block;
+    width: 100%;
+    background: transparent;
+    color: #fff;
+    border: none;
+    position: relative;
+    padding: 12px 5px;
+    font-size: 20px;
+}
+.investments__input::placeholder {
+    color: #fff;
+    font-size: 20px;
+}
+
+.investments__suggested-tickers {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.investments__suggested-ticker {
+    background: #fff;
+    border-radius: 6px;
+    position: relative;
+    padding: 10px;
+    color: rgba(52, 58, 64, 0.8);
+    margin-right: 10px;
+    cursor: pointer;
+}
+.investments__suggested-ticker:hover {
+    background: #F2EDF3;
+}
+
+.investments__suggested-ticker-title {
+    font-size: 18px;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+.investments__suggested-ticker-symbol,
+.investments__suggested-ticker-currency,
+.investments__suggested-ticker-region {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 5px;
+}
