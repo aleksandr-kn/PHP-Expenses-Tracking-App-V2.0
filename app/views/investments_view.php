@@ -23,7 +23,7 @@
 
             <!-- Форма добавления новых инвестиций -->
             <div class="row">
-                <div class="col-12 col-xxl-6 stretch-card grid-margin">
+                <div class="col-12 col-xl-6 stretch-card grid-margin">
                     <div class="card h-100 bg-gradient-primary card-img-holder text-white">
                         <div class="investments card-body">
                             <h3 class="font-weight-normal mb-3 spendings__title">
@@ -33,13 +33,24 @@
 
                             <div class="investments__inner">
                                 <div class="investments__input-wrapper">
-                                    <input class="investments__input" type="text" placeholder="Введите название ценной бумаги"/>
+                                    <p class="investments__input-title">
+                                        Название ценной бумаги
+                                    </p>
+                                    <input class="investments__input investments__company-input" type="text"/>
                                 </div>
                                 <div class="investments__suggested-tickers"></div>
+                                <div class="investments__input-wrapper">
+                                    <p class="investments__input-title">
+                                        Цена при покупке
+                                    </p>
+                                    <input class="investments__input investments__amount-input" type="number" placeholder="0.00"/>
+                                </div>
+                                <p class="investments__input-title">
+                                    Дата покупки
+                                </p>
+                                <input class="investments__input-date form-control mb-3" type="date">
                             </div>
-
-
-                            <button class="btn btn-light btn-lg btn-block"
+                            <button class="investments__submit btn btn-light btn-lg btn-block"
                                 type="button">
                                 Добавить
                             </button>

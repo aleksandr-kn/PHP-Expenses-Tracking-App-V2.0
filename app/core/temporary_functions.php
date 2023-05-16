@@ -1,5 +1,5 @@
 <?php
-function test_input($data)
+function sanitize_input($data)
 {
   $data = trim($data);
   $data = stripslashes($data);
@@ -46,11 +46,16 @@ function prettyPrint($data) {
   echo "</pre>";
 }
 
+function dd($data) {
+    prettyPrint($data);
+    exit();
+}
+
 // Returns a random string
 function random_str(
     int $length = 64,
     string $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
-): string 
+): string
 {
     if ($length < 1) {
         throw new \RangeException("Length must be a positive integer");

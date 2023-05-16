@@ -4,7 +4,7 @@ class Model_Login extends Model
 {
   public function __construct()
   {
-    $this->db = create_connection(); 
+    $this->db = create_connection();
   }
   //Try logging in
   public function process()
@@ -19,16 +19,16 @@ class Model_Login extends Model
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       // Check if username is empty
-      if (empty(test_input($_POST["username"]))) {
+      if (empty(sanitize_input($_POST["username"]))) {
         $loginResult["errors"]['username_err'] = "Введите имя пользователя.";
       } else {
         $loginResult["user_data"]['username'] = trim($_POST["username"]);
       }
       // Check if password is empty
-      if (empty(test_input($_POST["password"]))) {
+      if (empty(sanitize_input($_POST["password"]))) {
         $loginResult["errors"]['password_err'] = "Введите пароль.";
       } else {
-        $loginResult["user_data"]['password'] = test_input($_POST["password"]);
+        $loginResult["user_data"]['password'] = sanitize_input($_POST["password"]);
       }
 
       //credentials
@@ -37,11 +37,11 @@ class Model_Login extends Model
         $param_username = $loginResult["user_data"]['username'];
         //$param_password = $loginResult["user_data"]['password'];
 
-        
+
 
         // $res = pg_query($db, "SELECT EXISTS(SELECT username FROM users WHERE username = '$param_username');");
 
-        // Prepared statement 
+        // Prepared statement
         $stmt = $this->db->prepare("SELECT EXISTS(SELECT username FROM users WHERE username = ?);");
         $stmt->execute([$param_username]);
         $result = $stmt->fetch();
@@ -71,7 +71,7 @@ class Model_Login extends Model
 
               $loginResult['status'] = true;
               return $loginResult;
-              //Admin and executor login part 
+              //Admin and executor login part
               /*
               $res = pg_query($db, "SELECT EXISTS(SELECT id FROM admins WHERE user_id = '$id');");
               if (pg_fetch_result($res, 0, 0) == 't') {
@@ -79,7 +79,7 @@ class Model_Login extends Model
               	header("location: /adminpage");
               	exit;
               }
-              
+
 		            $res = pg_query($db, "SELECT EXISTS(SELECT id FROM executor WHERE user_id = '$id');");
 		            if (pg_fetch_result($res, 0, 0) == 't') {
 		            	$_SESSION["isExecutor"] = true;

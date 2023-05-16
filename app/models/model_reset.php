@@ -17,16 +17,16 @@ class Model_Reset extends Model
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
       //Валидация нового пароля
-      if (empty(test_input($_POST["new_password"]))) {
+      if (empty(sanitize_input($_POST["new_password"]))) {
         $resetResult["errors"]["new_password_err"] = "Please enter the new password.";
-      } elseif (strlen(test_input($_POST["new_password"])) < 6) {
+      } elseif (strlen(sanitize_input($_POST["new_password"])) < 6) {
         $resetResult["errors"]["new_password_err"] = "Пароль не должен быть менее 6 символов.";
       } else {
-        $resetResult["user_data"]["new_password"] = test_input($_POST["new_password"]);
+        $resetResult["user_data"]["new_password"] = sanitize_input($_POST["new_password"]);
       }
 
       //Валидация подтверждения нового пароля
-      if (empty(test_input($_POST["confirm_password"]))) {
+      if (empty(sanitize_input($_POST["confirm_password"]))) {
         $resetResult["errors"]["confirm_password_err"]  = "Пожалуйста подтвердите новый пароль.";
       } else {
         $resetResult["user_data"]["confirm_password"] = trim($_POST["confirm_password"]);
@@ -44,7 +44,7 @@ class Model_Reset extends Model
         //Get session id
         $param_id = $_SESSION["id"];
 
-        // Prepared statement 
+        // Prepared statement
         $stmt = $this->db->prepare("UPDATE users SET password = '$param_password' WHERE id = ?;");
         $stmt->execute([$param_id]);
 

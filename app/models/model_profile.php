@@ -11,7 +11,7 @@ class Model_Profile
       "errors" => array(),
     );
 
-    $this->db = create_connection(); 
+    $this->db = create_connection();
   }
 
   public function get_user_info()
@@ -31,7 +31,7 @@ class Model_Profile
   private function get_categories($quantity = 'default')
   {
     $id_param = $_SESSION["id"];
-        
+
     $stmt = $this->db->prepare("SELECT id, name FROM spending_category WHERE user_id = ?;");
     $stmt->execute([$id_param]);
     $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -72,7 +72,7 @@ class Model_Profile
 
     // // Замер времени запроса
     // $db->query('set profiling=1'); //optional if profiling is already enabled
-    // $sql = "SELECT limitedSpendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name, 
+    // $sql = "SELECT limitedSpendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name,
     //   spending_source.name as source_name,
     //   limitedSpendings.spending_date, limitedSpendings.name, limitedSpendings.sum, limitedSpendings.user_id
     //   FROM (SELECT * FROM spendings WHERE spendings.user_id = '$id_param' ORDER BY spendings.id DESC LIMIT 25) as limitedSpendings
@@ -87,7 +87,7 @@ class Model_Profile
     // echo "<br>";
     // echo "Поиск занял: " . $duration . " секунд";
 
-    $offset =  ($quantity * $pageToLoad) - $quantity; 
+    $offset =  ($quantity * $pageToLoad) - $quantity;
 
     $res = $this->db->query(
       "SELECT limitedSpendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name, 
@@ -101,9 +101,9 @@ class Model_Profile
 
     // Старый запрос
     // $res = $this->db->query(
-    //   "SELECT spendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name, 
+    //   "SELECT spendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name,
     //   spending_source.name as source_name,
-    //   spendings.spending_date, spendings.name, spendings.sum 
+    //   spendings.spending_date, spendings.name, spendings.sum
     //   FROM spendings
     //   LEFT JOIN spending_category ON spending_category.id = spendings.spending_category_id
     //   LEFT JOIN spending_subcategory ON spending_subcategory.id = spendings.spending_subcategory_id
@@ -114,7 +114,7 @@ class Model_Profile
     // );
 
     // $res = $this->db->query(
-    //   "SELECT * 
+    //   "SELECT *
     //   FROM GetSpendings
     //   WHERE user_id = '$id_param'
     //   ORDER BY id DESC
@@ -126,11 +126,11 @@ class Model_Profile
     return $spendings;
   }
 
-  public function get_filtered_spendings($first_date, $last_date, 
-  $spending_category_id = null, 
+  public function get_filtered_spendings($first_date, $last_date,
+  $spending_category_id = null,
   $spending_subcategory_id = null,
-  $spending_source_id = null, 
-  $min_sum = 0, 
+  $spending_source_id = null,
+  $min_sum = 0,
   $max_sum = 9999999 )
   {
     $db = create_connection();
@@ -143,7 +143,7 @@ class Model_Profile
     if (empty($first_date)) {
       $first_date = $this->db->query("SELECT registration_date FROM users WHERE id = '{$id_param}';")->fetch();
     }
-    
+
     if (empty($spending_category_id)) {
       $spending_category_id = " LIKE '%'";
     } else {
@@ -168,10 +168,10 @@ class Model_Profile
     $last_date = date('Y-m-d H:i:s',strtotime($last_date));
 
     // Old query
-    // $resource = $this->db->query( 
-    // "SELECT spendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name, 
+    // $resource = $this->db->query(
+    // "SELECT spendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name,
     // spending_source.name as source_name,
-    // spendings.spending_date, spendings.name, spendings.sum 
+    // spendings.spending_date, spendings.name, spendings.sum
     // FROM spendings
     // LEFT JOIN spending_category ON spending_category.id = spendings.spending_category_id
     // LEFT JOIN spending_subcategory ON spending_subcategory.id = spendings.spending_subcategory_id
@@ -182,8 +182,8 @@ class Model_Profile
     // AND spendings.spending_subcategory_id{$spending_subcategory_id}
     // AND spendings.spending_source_id{$spending_source_id}
     // ORDER BY spendings.id DESC;");
-    
-    $resource = $this->db->query( 
+
+    $resource = $this->db->query(
     "SELECT filteredSpendings.id, spending_category.name as category_name, spending_subcategory.name as subcategory_name, 
     spending_source.name as source_name,
     filteredSpendings.spending_date, filteredSpendings.name, filteredSpendings.sum, filteredSpendings.user_id
@@ -233,7 +233,7 @@ class Model_Profile
     $current_date_param = date("Y/m/d");
 
     if (is_numeric($spending_amount)) {
-      // ??? 
+      // ???
       // pg_query('SET datestyle = dmy;');
       $resource = $this->db->query("INSERT INTO spendings (user_id, spending_category_id, spending_subcategory_id, spending_source_id,
       name, sum, spending_date)
@@ -257,7 +257,7 @@ class Model_Profile
     $db = create_connection();
 
     $spending_id = (int)$spending_id;
-    
+
     if (is_int($spending_id) && $this->db->query("DELETE FROM spendings WHERE id = '{$spending_id}';")->rowCount()) {
       $result['status'] = true;
     } else {
@@ -353,7 +353,7 @@ class Model_Profile
     } else {
       $result['status'] = false;
     }
-    
+
     return $result;
   }
 
@@ -368,20 +368,20 @@ class Model_Profile
     $resource = $this->db->query("SELECT username, email, info FROM users WHERE id = {$_SESSION['id']};");
     $current_fields = $resource->fetchAll(PDO::FETCH_ASSOC);
 
-    $new_username = test_input($new_username);
-    $new_email = test_input($new_email);
-    $new_info = test_input($new_info);
+    $new_username = sanitize_input($new_username);
+    $new_email = sanitize_input($new_email);
+    $new_info = sanitize_input($new_info);
 
     $email_err = "";
     $username_err = "";
 
-    if (empty(test_input($new_username))) {
+    if (empty(sanitize_input($new_username))) {
       $username_err = "Введите имя пользователя";
     }
     if (($this->db->query("SELECT EXISTS(SELECT username FROM users WHERE username = '$new_username');")->fetch()[0]) && ($new_username != $current_fields[0]['username'])) {
       $username_err = "Это имя пользователя уже занято";
     }
-    if (empty(test_input($new_email))) {
+    if (empty(sanitize_input($new_email))) {
       $email_err = "Введите Email";
     }
     if (($this->db->query("SELECT EXISTS(SELECT email FROM users WHERE email = '$new_email');")->fetch()[0]) && ($new_email != $current_fields[0]['email'])) {
@@ -414,15 +414,15 @@ class Model_Profile
       $array = array_filter($array, fn($v) => (
           $includeEmpties ? is_numeric($v) : is_numeric($v) && ($v > 0)
       ));
-      
+
       if (count($array) != 0) {
         return round((array_sum($array) / count($array)), 0, PHP_ROUND_HALF_UP);
       } else {
         return 0;
       }
-      
+
   }
-  
+
 
   private function pct_change($old, $new, int $precision = 2): float
   {
@@ -467,7 +467,7 @@ class Model_Profile
     $this->resultData["user_data"]["user_info"] = $this->get_user_info();
 
     $this->resultData["user_data"]["min_max"] = $this->get_min_max_sum();
-    
+
     //total spendigns of this week
     $this_week_spendings = $this->get_this_week_spendings();
     $this_week_spendings_sum = $this->get_spendings_sum($this_week_spendings);
@@ -499,7 +499,7 @@ class Model_Profile
     $this->resultData["user_data"]["this_week_spendings_quantity"] = $this_week_spendings_quantity;
     $this->resultData["user_data"]["percentage_difference_quantity_status"] = $this->spendings_change_status($percentage_difference_quantity);
 
-    //amount info 
+    //amount info
     $percentage_difference_amount = $this->pct_change($last_week_spendings_sum, $this_week_spendings_sum);
     $this->resultData["user_data"]["percentage_difference_amount"] = abs($percentage_difference_amount);
     $this->resultData["user_data"]["percentage_difference_amount_status"] = $this->spendings_change_status($percentage_difference_amount);

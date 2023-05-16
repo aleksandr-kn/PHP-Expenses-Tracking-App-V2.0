@@ -33,4 +33,35 @@ class Controller_Investments extends Controller
 
         echo json_encode($result);
     }
+
+    public function action_add_investment() {
+        $required = array('name', 'ticker', 'date', 'amount');
+
+        $error = false;
+        foreach($required as $field) {
+            if (empty($_POST[$field])) {
+                $error = true;
+            }
+        }
+
+        if ($error) {
+            http_response_code(400 );
+            echo json_encode(['error' => 'Неправильные параметры запроса']);
+            exit();
+        }
+
+        $name = trim($_POST['name']);
+        $ticker = trim($_POST['ticker']);
+        $date = trim($_POST['date']);
+        $amount = trim($_POST['amount']);
+
+        $result = $this->model->storeInvestment([
+            'date' => date('Y-m-d', (DateTime::createFromFormat('Y-m-d', sanitize_input($date))->getTimestamp())),
+            'name' => sanitize_input($name),
+            'ticker' => sanitize_input($ticker),
+            'amount' => sanitize_input($amount),
+        ]);
+
+        echo json_encode(['result' => $result]);
+    }
 }

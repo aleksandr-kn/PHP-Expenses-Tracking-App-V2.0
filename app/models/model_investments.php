@@ -31,4 +31,11 @@ class Model_Investments extends Model {
 
         return $cleanResult;
     }
+
+    public function storeInvestment($params) {
+        $userId = $_SESSION['id'];
+        $stmt = $this->db->prepare("INSERT INTO investments (id, user_id, start_price, ticker, name) VALUES (DEFAULT, ?, ?, ?, ?);");
+        $stmt->execute([$userId, $params['amount'], $params['ticker'], $params['name']]);
+        return ($stmt->rowCount() > 0);
+    }
 }

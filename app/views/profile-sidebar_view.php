@@ -16,7 +16,7 @@
     <li class="nav-item">
       <a class="nav-link" href="/profile/dashboard">
         <span class="menu-title">Расходы</span>
-        <i class="mdi mdi-home menu-icon"></i>
+        <i class="mdi mdi-cash menu-icon"></i>
       </a>
     </li>
     <li class="nav-item">
@@ -41,6 +41,12 @@
       <a class="nav-link" href="/profile/settings">
         <span class="menu-title">Настройки</span>
         <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/investments">
+        <span class="menu-title">Инвестиции</span>
+        <i class="mdi mdi-finance menu-icon"></i>
       </a>
     </li>
 
