@@ -137,6 +137,7 @@ $(document).ready(() => {
                 "Успешно добавлено",
                 "bg-gradient-success"
             );
+            window.location.reload();
         }).fail(function () {
             UI.showAlert(
                 "Произошла ошибка",

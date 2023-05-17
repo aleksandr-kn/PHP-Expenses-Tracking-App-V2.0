@@ -67,6 +67,7 @@
                                 <h6 class="investments-added-card__title"><?=$investment['name']?></h6>
                                 <p class="investments-added-card__text">Тикер: <?=$investment['ticker']?></p>
                                 <p class="investments-added-card__text">Цена при покупке: <?=$investment['start_price']?> USD</p>
+                                <p class="investments-added-card__text">Дата покупки: <?=$investment['date']?></p>
                                 <span class="investments-added-card__close-icon mdi mdi-close"></span>
                             </div>
                         </div>
