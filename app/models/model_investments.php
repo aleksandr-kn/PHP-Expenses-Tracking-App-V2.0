@@ -7,8 +7,10 @@ class Model_Investments extends Model {
         $this->db = create_connection();
         $this->apiBaseUrl = 'https://www.alphavantage.co';
         $this->apiKey = 'AYV5YWAEN97JXDIY';
+        $this->userId = $_SESSION['id'];
     }
 
+    // Использует AlphaAdvantage API
     public function fetchItemsByCompanyName($companyName) {
         $json = file_get_contents("{$this->apiBaseUrl}/query?function=SYMBOL_SEARCH&keywords={$companyName}&apikey={$this->apiKey}");
 
@@ -37,5 +39,19 @@ class Model_Investments extends Model {
         $stmt = $this->db->prepare("INSERT INTO investments (id, user_id, start_price, ticker, name) VALUES (DEFAULT, ?, ?, ?, ?);");
         $stmt->execute([$userId, $params['amount'], $params['ticker'], $params['name']]);
         return ($stmt->rowCount() > 0);
+    }
+
+    public function getInvestments() {
+        $userId = $_SESSION['id'];
+
+        $stmt = $this->db->query("SELECT * FROM investments WHERE user_id = {$this->userId}");
+
+        $investments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $investments;
+    }
+
+    public function deleteInvestment($investmentId) {
+        $userId = $_SESSION['id'];
+        return $this->db->query("DELETE FROM investments WHERE id = '{$investmentId}' AND user_id = '{$userId}';")->rowCount();
     }
 }

@@ -26,6 +26,30 @@ $(document).ready(() => {
         }
     })
 
+    //Слушаем клики для удаления инвестиций
+    $('.investments-added-list').click(function (e) {
+        e.stopPropagation();
+        if (!e.target.classList.contains('investments-added-card__close-icon')) return;
+
+        const id = $(e.target).closest('.investments-added-card').data('investment-id');
+
+        $.post('/investments/delete_investment', {
+                id: id,
+            },
+        ).done(function () {
+            UI.showAlert(
+                "Успешно удалено",
+                "bg-gradient-success"
+            );
+            window.location.reload();
+        }).fail(function () {
+            UI.showAlert(
+                "Произошла ошибка",
+                "bg-gradient-danger"
+            );
+        })
+    })
+
     const createSuggestedElement = (data) => {
         const {symbol, name, region, currency} = data;
         return `

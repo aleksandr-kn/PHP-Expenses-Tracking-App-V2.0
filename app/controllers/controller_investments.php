@@ -17,8 +17,9 @@ class Controller_Investments extends Controller
     public function action_index() {
         // get investment data from DB
         // TODO
+        $data['investments'] = $this->model->getInvestments();
 
-        $this->view->generate('investments_view.php', 'template_view.php');
+        $this->view->generate('investments_view.php', 'template_view.php', $data);
     }
 
     public function action_get_suggested_tickers() {
@@ -61,6 +62,23 @@ class Controller_Investments extends Controller
             'ticker' => sanitize_input($ticker),
             'amount' => sanitize_input($amount),
         ]);
+
+        echo json_encode(['result' => $result]);
+    }
+
+    public function action_get_investments() {
+        echo json_encode($this->model->getInvestments());
+    }
+
+    public function action_delete_investment() {
+        if (empty($_POST['id'])) {
+            http_response_code(400 );
+            echo json_encode(['error' => 'Неправильные параметры запроса']);
+            exit();
+        }
+        $investmentId = sanitize_input($_POST['id']);
+
+        $result = $this->model->deleteInvestment($investmentId);
 
         echo json_encode(['result' => $result]);
     }
