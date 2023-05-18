@@ -6,6 +6,7 @@ class Controller
 	public $model;
 	public $view;
 
+    public $params;
 	function __construct()
 	{
 		$this->view = new View();
@@ -13,8 +14,18 @@ class Controller
 	}
 
 	// действие (action), вызываемое по умолчанию
-	function action_index()
+	public function action_index()
 	{
-		// todo	
+		// todo
 	}
+
+    public function setRouteParams($params) {
+        $this->params = $params;
+    }
+
+    public function exitWithResponseCode($code = 400, $message = 'Неправильные параметры запроса') {
+        http_response_code($code);
+        echo json_encode(['error' => $message]);
+        exit();
+    }
 }

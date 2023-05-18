@@ -8,7 +8,7 @@ class Route
 		$controller_name = 'login';
 		$action_name = 'index';
 
-  	$routes = explode('/', $_SERVER['REQUEST_URI']);
+  	    $routes = explode('/', $_SERVER['REQUEST_URI']);
 
 		if (!empty($routes[1])) {
 			$controller_name = $routes[1];
@@ -36,8 +36,15 @@ class Route
 			Route::ErrorPage404();
 		}
 
-		$controller = new $controller_name;
+		$controller = new $controller_name();
 		$action = $action_name;
+
+        // Доставем параметры если они есть
+        $params = [];
+        if (count($routes) > 3) {
+            $params = array_slice($routes, 3);
+            $controller->setRouteParams($params);
+        }
 
 		if (method_exists($controller, $action)) {
 			$controller->$action();

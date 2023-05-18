@@ -54,4 +54,11 @@ class Model_Investments extends Model {
         $userId = $_SESSION['id'];
         return $this->db->query("DELETE FROM investments WHERE id = '{$investmentId}' AND user_id = '{$userId}';")->rowCount();
     }
+
+    public function getInvestmentById($id) {
+        $userId = $_SESSION['id'];
+        $stmt = $this->db->query("SELECT * FROM investments WHERE id = {$id} AND user_id = {$this->userId}");
+        $investments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return count($investments) > 0 ? $investments[0] : null;
+    }
 }

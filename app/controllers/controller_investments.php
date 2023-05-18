@@ -82,4 +82,18 @@ class Controller_Investments extends Controller
 
         echo json_encode(['result' => $result]);
     }
+
+    public function action_investment() {
+        if (!isset($this->params[0]) || !(is_numeric($this->params[0]))) {
+            $this->exitWithResponseCode(400);
+        }
+
+        $investmentId = (int)$this->params[0];
+        $investment = $this->model->getInvestmentById($investmentId);
+
+        if (!$investment) {
+            $this->exitWithResponseCode(404, 'Не удалось найти инвестицию');
+        }
+        //TODO создать и добавить view
+    }
 }
