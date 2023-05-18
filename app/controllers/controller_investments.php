@@ -95,5 +95,6 @@ class Controller_Investments extends Controller
             $this->exitWithResponseCode(404, 'Не удалось найти инвестицию');
         }
         //TODO создать и добавить view
+        $this->view->generate('investment_view.php', 'template_view.php', ['investment' => $investment]);
     }
 }

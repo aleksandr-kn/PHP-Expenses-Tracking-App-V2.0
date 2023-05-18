@@ -62,14 +62,16 @@
                 <div class="row investments-added-list">
                 <?php foreach ($data['investments'] as $investment): ?>
                     <div class="col-12 col-xl-6 stretch-card mb-4">
-                        <div class="card h-100 bg-gradient-dark card-img-holder text-white">
-                            <div class="investments-added-card card-body" data-investment-id="<?=$investment['id']?>">
-                                <h6 class="investments-added-card__title"><?=$investment['name']?></h6>
-                                <p class="investments-added-card__text">Тикер: <?=$investment['ticker']?></p>
-                                <p class="investments-added-card__text">Цена при покупке: <?=$investment['start_price']?> USD</p>
-                                <p class="investments-added-card__text">Дата покупки: <?=$investment['date']?></p>
-                                <span class="investments-added-card__close-icon mdi mdi-close"></span>
-                            </div>
+                        <div class="card h-100 bg-gradient-dark card-img-holder">
+                            <a class="investments-added-card__link" href="/investments/investment/<?=$investment['id']?>">
+                                <div class="investments-added-card card-body text-white" data-investment-id="<?=$investment['id']?>">
+                                    <h6 class="investments-added-card__title"><?=$investment['name']?></h6>
+                                    <p class="investments-added-card__text">Тикер: <?=$investment['ticker']?></p>
+                                    <p class="investments-added-card__text">Цена при покупке: <?=$investment['start_price']?> USD</p>
+                                    <p class="investments-added-card__text">Дата покупки: <?=$investment['date']?></p>
+                                    <span class="investments-added-card__close-icon mdi mdi-close"></span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 <?php endforeach; ?>
