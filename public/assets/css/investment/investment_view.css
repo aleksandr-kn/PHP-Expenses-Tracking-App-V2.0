@@ -1,0 +1,46 @@
+.investments-added-list {
+    margin: 0;
+}
+
+.investment__back-link {
+    color: #000000 !important;
+    text-decoration: none !important;
+}
+
+.investment__card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.investments-added-card.card-body {
+    padding: 1.25rem;
+}
+.investments-added-card__title {
+    font-size: 30px;
+    line-height: 45px;
+    margin-bottom: 10px;
+}
+.investments-added-card__text {
+    font-size: 18px;
+    line-height: 25px;
+    margin-bottom: 5px;
+}
+.investments-added-card__close-icon {
+    color: #fff;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.investments-added-card__close-icon:hover {
+    color: #F2EDF3;
+}
+
+.investments-added-card__link,
+.investments-added-card__link {
+    text-decoration: none !important;
+    color: #fff !important;
+}

@@ -36,8 +36,8 @@ class Model_Investments extends Model {
 
     public function storeInvestment($params) {
         $userId = $_SESSION['id'];
-        $stmt = $this->db->prepare("INSERT INTO investments (id, user_id, start_price, ticker, name, date) VALUES (DEFAULT, ?, ?, ?, ?, ?);");
-        $stmt->execute([$userId, $params['amount'], $params['ticker'], $params['name'], $params['date']]);
+        $stmt = $this->db->prepare("INSERT INTO investments (id, user_id, start_price, ticker, name, date, quantity) VALUES (DEFAULT, ?, ?, ?, ?, ?, ?);");
+        $stmt->execute([$userId, $params['amount'], $params['ticker'], $params['name'], $params['date'], $params['quantity']]);
         return ($stmt->rowCount() > 0);
     }
 
@@ -56,9 +56,49 @@ class Model_Investments extends Model {
     }
 
     public function getInvestmentById($id) {
-        $userId = $_SESSION['id'];
         $stmt = $this->db->query("SELECT * FROM investments WHERE id = {$id} AND user_id = {$this->userId}");
         $investments = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return count($investments) > 0 ? $investments[0] : null;
+    }
+
+    public function getInvestmentsByTicker($ticker) {
+        $stmt = $this->db->query("SELECT * FROM investments WHERE ticker = '$ticker' AND user_id = '$this->userId'");
+        $investments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return count($investments) > 0 ? $investments : null;
+    }
+
+    public function getInvestmentHistoricalData($ticker, $inteval = '60min') {
+        $json = file_get_contents("{$this->apiBaseUrl}/query?function=TIME_SERIES_INTRADAY&symbol={$ticker}&interval=60min&apikey={$this->apiKey}");
+        if (!$json) {
+            return false;
+        }
+
+        return json_decode($json, true);
+    }
+
+    public function getTickerCurrentPrice($ticker) {
+        $recentData = $this->getInvestmentHistoricalData($ticker);
+        //TODO Пока забито хардкодом по индексам, т.к. api возвращает ключи в неудобном формате
+        $series = array_values($recentData)[1];
+        $lastRecord = reset($series);
+        $lastRecordClosedPrice = array_values($lastRecord)[3];
+
+        return $lastRecordClosedPrice;
+    }
+
+    // Получает сумму всех инвестиций по тикеру у текущего пользователя
+    public function getTickerTotalData($ticker) {
+        $stmt = $this->db->query("SELECT start_price, quantity FROM investments WHERE ticker = '$ticker' AND user_id = '$this->userId'");
+
+        $investments = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $totalAmount = 0;
+        $totalQuantity = 0;
+        foreach ($investments as $investment) {
+            $totalQuantity += $investment['quantity'];
+            $totalAmount += $investment['start_price'] * $investment['quantity'];
+        }
+
+        return ['quantity' => $totalQuantity, 'amount' => $totalAmount];
     }
 }

@@ -45,6 +45,12 @@
                                     </p>
                                     <input class="investments__input investments__amount-input" type="number" placeholder="0.00"/>
                                 </div>
+                                <div class="investments__input-wrapper">
+                                    <p class="investments__input-title">
+                                        Количество
+                                    </p>
+                                    <input class="investments__input investments__quantity-input" type="number" value="1"/>
+                                </div>
                                 <p class="investments__input-title">
                                     Дата покупки
                                 </p>
@@ -59,7 +65,8 @@
                 </div>
             </div>
             <?php if (isset($data['investments']) && count($data['investments']) > 0): ?>
-                <div class="row investments-added-list">
+                <div class="row investments-added-list" id="added-tickers-list">
+
                 <?php foreach ($data['investments'] as $investment): ?>
                     <div class="col-12 col-xl-6 stretch-card mb-4">
                         <div class="card h-100 bg-gradient-dark card-img-holder">
@@ -68,6 +75,7 @@
                                     <h6 class="investments-added-card__title"><?=$investment['name']?></h6>
                                     <p class="investments-added-card__text">Тикер: <?=$investment['ticker']?></p>
                                     <p class="investments-added-card__text">Цена при покупке: <?=$investment['start_price']?> USD</p>
+                                    <p class="investments-added-card__text">Кол-во: <?=$investment['quantity']?></p>
                                     <p class="investments-added-card__text">Дата покупки: <?=$investment['date']?></p>
                                     <span class="investments-added-card__close-icon mdi mdi-close"></span>
                                 </div>

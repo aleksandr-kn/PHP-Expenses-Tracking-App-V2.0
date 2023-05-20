@@ -36,7 +36,7 @@ class Controller_Investments extends Controller
     }
 
     public function action_add_investment() {
-        $required = array('name', 'ticker', 'date', 'amount');
+        $required = array('name', 'ticker', 'date', 'amount', 'quantity');
 
         $error = false;
         foreach($required as $field) {
@@ -55,12 +55,14 @@ class Controller_Investments extends Controller
         $ticker = trim($_POST['ticker']);
         $date = trim($_POST['date']);
         $amount = trim($_POST['amount']);
+        $quantity = trim($_POST['quantity']);
 
         $result = $this->model->storeInvestment([
             'date' => date('Y-m-d', (DateTime::createFromFormat('Y-m-d', sanitize_input($date))->getTimestamp())),
             'name' => sanitize_input($name),
             'ticker' => sanitize_input($ticker),
             'amount' => sanitize_input($amount),
+            'quantity' => sanitize_input($quantity),
         ]);
 
         echo json_encode(['result' => $result]);
@@ -84,6 +86,7 @@ class Controller_Investments extends Controller
     }
 
     public function action_investment() {
+        $data = [];
         if (!isset($this->params[0]) || !(is_numeric($this->params[0]))) {
             $this->exitWithResponseCode(400);
         }
@@ -94,7 +97,23 @@ class Controller_Investments extends Controller
         if (!$investment) {
             $this->exitWithResponseCode(404, 'Не удалось найти инвестицию');
         }
-        //TODO создать и добавить view
-        $this->view->generate('investment_view.php', 'template_view.php', ['investment' => $investment]);
+        // Инвестиция по которой пришли на данную страницу
+        $data['investment'] = $investment;
+        // Список всех инвестиций по данному тикеру
+        $data['investments'] = $this->model->getInvestmentsByTicker($investment['ticker']);
+
+        // Доходность по тикеру
+        $totalDataWhenBought = $this->model->getTickerTotalData($investment['ticker']);
+        $currentPrice = $this->model->getTickerCurrentPrice($investment['ticker']);
+        $data['income'] = round((($currentPrice * $totalDataWhenBought['quantity']) - $totalDataWhenBought['amount']), 2);
+
+        // Свечи за последнее время по тикеру
+        $data['history'] = array_values($this->model->getInvestmentHistoricalData($investment['ticker']))[1];
+
+        $this->view->generate('investment_view.php', 'template_view.php', $data);
+    }
+
+    public function action_test() {
+//        dd($this->model->getTickerTotalPrice('AMZN'));
     }
 }

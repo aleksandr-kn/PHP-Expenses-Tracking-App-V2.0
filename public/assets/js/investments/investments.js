@@ -109,16 +109,21 @@ $(document).ready(() => {
         if ($('.investments__suggested-ticker.active').length) {
             return;
         }
+        if (this.value.length < 3) {
+            emptySuggestedItems();
+            return;
+        }
         handleTickerInputDebounce(this);
     });
 
     $('.investments__submit').click(function () {
         const date = $('.investments__input-date').val();
-        const amount = $('.investments__amount-input').val();
+        const amount = $('.investments__amount-input').val(); // Сумма
         const ticker = $('.investments__suggested-ticker.active').eq(0).data('ticker');
         const name = $('.investments__company-input').val();
+        const quantity = $('.investments__quantity-input').val(); // Количество
 
-        if ((!date || !amount || !ticker || !name)) {
+        if ((!date || !amount || !ticker || !name || !quantity)) {
             UI.showAlert(
                 "Пожалуйста заполните все поля",
                 "bg-gradient-danger"
@@ -130,7 +135,8 @@ $(document).ready(() => {
                 date: date,
                 amount: amount,
                 ticker: ticker,
-                name: name
+                name: name,
+                quantity: quantity,
             },
         ).done(function () {
             UI.showAlert(
