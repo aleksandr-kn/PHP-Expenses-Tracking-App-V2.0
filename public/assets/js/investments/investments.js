@@ -29,6 +29,7 @@ $(document).ready(() => {
     //Слушаем клики для удаления инвестиций
     $('.investments-added-list').click(function (e) {
         e.stopPropagation();
+        e.preventDefault();
         if (!e.target.classList.contains('investments-added-card__close-icon')) return;
 
         const id = $(e.target).closest('.investments-added-card').data('investment-id');
@@ -41,7 +42,9 @@ $(document).ready(() => {
                 "Успешно удалено",
                 "bg-gradient-success"
             );
-            window.location.reload();
+            setTimeout(() => {
+                window.location.reload();
+            }, 350);
         }).fail(function () {
             UI.showAlert(
                 "Произошла ошибка",
