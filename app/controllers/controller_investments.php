@@ -115,12 +115,14 @@ class Controller_Investments extends Controller
         $data['income'] = round((($currentPrice * $totalDataWhenBought['quantity']) - $totalDataWhenBought['amount']), 2);
 
         // Свечи за последнее время по тикеру
-        $data['history'] = array_values($this->model->getInvestmentHistoricalData($investment['ticker']))[1];
+        $data['history'] = $this->cacher->getCachedTickerHistory($investment['ticker']);
+        if (empty($data['history'])) {
+            $data['history'] = $this->model->getInvestmentHistoricalData($investment['ticker']);
+        }
 
         $this->view->generate('investment_view.php', 'template_view.php', $data);
     }
 
     public function action_test() {
-//        dd($this->model->getTickerTotalPrice('AMZN'));
     }
 }

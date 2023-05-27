@@ -29,28 +29,28 @@ $(document).ready(() => {
     //Слушаем клики для удаления инвестиций
     $('.investments-added-list').click(function (e) {
         e.stopPropagation();
-        e.preventDefault();
-        if (!e.target.classList.contains('investments-added-card__close-icon')) return;
+        if (e.target.classList.contains('investments-added-card__close-icon')) {
+            e.preventDefault();
+            const id = $(e.target).closest('.investments-added-card').data('investment-id');
 
-        const id = $(e.target).closest('.investments-added-card').data('investment-id');
-
-        $.post('/investments/delete_investment', {
-                id: id,
-            },
-        ).done(function () {
-            UI.showAlert(
-                "Успешно удалено",
-                "bg-gradient-success"
-            );
-            setTimeout(() => {
-                window.location.reload();
-            }, 350);
-        }).fail(function () {
-            UI.showAlert(
-                "Произошла ошибка",
-                "bg-gradient-danger"
-            );
-        })
+            $.post('/investments/delete_investment', {
+                    id: id,
+                },
+            ).done(function () {
+                UI.showAlert(
+                    "Успешно удалено",
+                    "bg-gradient-success"
+                );
+                setTimeout(() => {
+                    window.location.reload();
+                }, 350);
+            }).fail(function () {
+                UI.showAlert(
+                    "Произошла ошибка",
+                    "bg-gradient-danger"
+                );
+            })
+        };
     })
 
     const createSuggestedElement = (data) => {

@@ -24,15 +24,7 @@ class Model_Investments extends Model {
         $result = json_decode($json, true)['bestMatches'];
 
         // Убираем индексы из ключей
-        $cleanResult = array_map(function($tickerItem) {
-            $keys = array_keys( $tickerItem );
-            foreach ($keys as $key) {
-                $newKey = preg_replace("/[^a-zA-Z]+/", "", $key);
-                $tickerItem[$newKey] = $tickerItem[$key];
-                unset($tickerItem[$key]);
-            }
-            return $tickerItem;
-        }, $result);
+        $cleanResult = $this->getCleanKeys($result);
 
         // Пытаемся закешировать данные
         foreach ($cleanResult as $ticker) {
@@ -76,19 +68,26 @@ class Model_Investments extends Model {
     }
 
     public function getInvestmentHistoricalData($ticker, $inteval = '60min') {
-        $json = file_get_contents("{$this->apiBaseUrl}/query?function=TIME_SERIES_INTRADAY&symbol={$ticker}&interval=60min&apikey={$this->apiKey}");
+        $json = file_get_contents("{$this->apiBaseUrl}/query?function=TIME_SERIES_INTRADAY&symbol=$ticker&interval=$inteval&apikey=$this->apiKey");
         if (!$json) {
             return false;
         }
 
-        return json_decode($json, true);
+        $result = json_decode($json, true);
+
+        // Правим ключи от API
+        $cleanResult = $this->getCleanKeys(array_pop($result));
+
+        // Кэшируем данные
+        $this->cacher->cacheTickerHistory($cleanResult, $ticker);
+
+        return $cleanResult;
     }
 
     public function getTickerCurrentPrice($ticker) {
         $recentData = $this->getInvestmentHistoricalData($ticker);
         //TODO Пока забито хардкодом по индексам, т.к. api возвращает ключи в неудобном формате
-        $series = array_values($recentData)[1];
-        $lastRecord = reset($series);
+        $lastRecord = reset($recentData);
         $lastRecordClosedPrice = array_values($lastRecord)[3];
 
         return $lastRecordClosedPrice;
@@ -108,5 +107,18 @@ class Model_Investments extends Model {
         }
 
         return ['quantity' => $totalQuantity, 'amount' => $totalAmount];
+    }
+
+    // Пересобирает ключи массива, т.к. API возвращает их в виде ['1. open']
+    protected function getCleanKeys($array) {
+        return array_map(function($tickerItem) {
+            $keys = array_keys( $tickerItem );
+            foreach ($keys as $key) {
+                $newKey = preg_replace("/[^a-zA-Z]+/", "", $key);
+                $tickerItem[$newKey] = $tickerItem[$key];
+                unset($tickerItem[$key]);
+            }
+            return $tickerItem;
+        }, $array);
     }
 }

@@ -3,10 +3,11 @@ $(document).ready(function () {
     let tickerDates = [];
     let tickerValues = [];
     for (const [key, value] of Object.entries(window.tickerHistoricalData)) {
-        tickerValues.push(value['4. close']);
+        tickerValues.push(value['close']);
         tickerDates.push(key);
     }
 
+    console.log(window.tickerHistoricalData);
     tickerValues.reverse();
     tickerDates.reverse();
 
