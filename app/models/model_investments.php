@@ -1,4 +1,5 @@
 <?php
+require_once ROOT .  '/app/core/Cacher.php';
 
 class Model_Investments extends Model {
 
@@ -8,8 +9,10 @@ class Model_Investments extends Model {
         $this->apiBaseUrl = 'https://www.alphavantage.co';
         $this->apiKey = 'AYV5YWAEN97JXDIY';
         $this->userId = $_SESSION['id'];
+        $this->cacher = new Cacher();
     }
 
+    // Получает похожие на введенное название тикеры
     // Использует AlphaAdvantage API
     public function fetchItemsByCompanyName($companyName) {
         $json = file_get_contents("{$this->apiBaseUrl}/query?function=SYMBOL_SEARCH&keywords={$companyName}&apikey={$this->apiKey}");
@@ -30,6 +33,11 @@ class Model_Investments extends Model {
             }
             return $tickerItem;
         }, $result);
+
+        // Пытаемся закешировать данные
+        foreach ($cleanResult as $ticker) {
+            $this->cacher->cacheInvestmentDataByDates($ticker);
+        }
 
         return $cleanResult;
     }

@@ -71,3 +71,13 @@ function random_str(
 function esc($args) {
   return htmlspecialchars($args, ENT_QUOTES, 'UTF-8');
 }
+
+function abbreviate($string) {
+    $words = preg_split("/\s+/", $string);
+    $acronym = "";
+
+    foreach ($words as $w) {
+        $acronym .= mb_substr($w, 0, 1);
+    }
+    return $acronym;
+}

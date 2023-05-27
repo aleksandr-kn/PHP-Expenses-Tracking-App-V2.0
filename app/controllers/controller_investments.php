@@ -1,5 +1,6 @@
 <?php
 
+require_once ROOT .  '/app/core/Cacher.php';
 class Controller_Investments extends Controller
 {
     function __construct()
@@ -12,6 +13,7 @@ class Controller_Investments extends Controller
 
         $this->model = new Model_Investments();
         $this->view = new View();
+        $this->cacher = new Cacher();
     }
 
     public function action_index() {
@@ -24,7 +26,12 @@ class Controller_Investments extends Controller
 
     public function action_get_suggested_tickers() {
         $companyName = $_GET['company_name'];
-        $result = $this->model->fetchItemsByCompanyName($companyName);
+
+        // Получаем тикеры либо из кэша, либо с API
+        $result = $this->cacher->getCachedSuggestedTicker($companyName);
+        if (empty($result)) {
+            $result = $this->model->fetchItemsByCompanyName($companyName);
+        }
 
         if (!$result) {
             http_response_code(503);
