@@ -5,20 +5,11 @@ function create_new_category_element(
   new_category = document.createElement("tr");
   new_category.classList.add("category-list__item");
   new_category.setAttribute("data-category-id", current_category_id);
-
-  //id
-  new_category_td = document.createElement("td");
-  new_category_td.textContent = current_category_id;
-  new_category.appendChild(new_category_td);
+  new_category.setAttribute("data-category-name", current_category_name);
 
   //name
   new_category_td = document.createElement("td");
   new_category_td.textContent = current_category_name;
-  new_category.appendChild(new_category_td);
-
-  //color
-  new_category_td = document.createElement("td");
-  new_category_td.textContent = "colorful progress bar here";
   new_category.appendChild(new_category_td);
 
   //delete button
@@ -30,7 +21,7 @@ function create_new_category_element(
   );
   new_category_delete_button.classList.add(
     "btn",
-    "btn-outline-secondary",
+    "btn-gradient-danger",
     "btn-fw",
     "delete-category"
   );
@@ -52,20 +43,11 @@ function create_new_subcategory_element(subcategory_element) {
   new_subcategory = document.createElement("tr");
   new_subcategory.classList.add("subcategory-list__item");
   new_subcategory.setAttribute("data-subcategory-id", subcategory_element.id);
-
-  //id
-  new_subcategory_td = document.createElement("td");
-  new_subcategory_td.textContent = subcategory_element.id;
-  new_subcategory.appendChild(new_subcategory_td);
+  new_subcategory.setAttribute("data-subcategory-name", subcategory_element.name);
 
   //name
   new_subcategory_td = document.createElement("td");
   new_subcategory_td.textContent = subcategory_element.name;
-  new_subcategory.appendChild(new_subcategory_td);
-
-  //color
-  new_subcategory_td = document.createElement("td");
-  new_subcategory_td.textContent = "Проценты";
   new_subcategory.appendChild(new_subcategory_td);
 
   //delete button
@@ -112,7 +94,7 @@ function delete_category(current_category_id) {
         ).remove();
       } else {
         $(".category-error").html(
-          "К сожалению не удалось удалить, попробуйте позже."
+          "К сожалению не удалось удалить, проверьте что для данной категории нет добавленных расходов.."
         );
       }
     },
@@ -184,7 +166,7 @@ function delete_subcategory(current_subcategory) {
         ).remove();
       } else {
         $(".subcategory-error").html(
-          "К сожалению не удалось удалить, попробуйте позже."
+          "Не удалось удалить, проверьте что для данной подкатегории нет добавленных расходов."
         );
       }
     },
@@ -217,7 +199,7 @@ function add_new_category() {
           current_category_name
         );
 
-        $(".category-list").prepend(new_category);
+        $(".category-list").append(new_category);
       } else {
         $(".category-error").html(
           "Ошибка при добавлении категории, попробуйте позже."
@@ -288,8 +270,9 @@ $(document).ready(function () {
   $(".category-list__item").click(function () {
     display_category_settings({
       id: $(this).data("category-id"),
-      name: $(this).children().eq(1).html(),
+      name: $(this).data("category-name"),
     });
+    document.querySelector('.subcategories-card').scrollIntoView({block: "end", behavior: "smooth"})
   });
 
   $("#add-new-subcategory").click(function () {

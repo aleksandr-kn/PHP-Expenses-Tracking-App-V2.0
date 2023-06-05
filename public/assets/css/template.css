@@ -63,11 +63,6 @@
     .content-wrapper {
         padding: 1.75rem 0.75rem;
     }
-    .page-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-    }
     .page-title {
         display: flex;
         justify-content: flex-start;
@@ -79,5 +74,25 @@
     }
     .card .card-body {
         padding: 1.25rem;
+    }
+    .breadcrumb-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .page-header__description {
+        font-size: 12px;
+        white-space: nowrap;
+    }
+    .breadcrumb {
+        padding: 0 5px;
+    }
+    .page-header {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+    }
+    .page-header .page-title .page-title-icon {
+        margin-bottom: 0;
     }
 }

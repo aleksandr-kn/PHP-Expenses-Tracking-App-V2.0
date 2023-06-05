@@ -150,24 +150,4 @@
     .grid-margin {
         margin-bottom: 1.5rem;
     }
-    .breadcrumb-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .page-header__description {
-        font-size: 12px;
-        white-space: nowrap;
-    }
-    .breadcrumb {
-        padding: 0 5px;
-    }
-    .page-header {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: space-between !important;
-    }
-    .page-header .page-title .page-title-icon {
-        margin-bottom: 0;
-    }
 }

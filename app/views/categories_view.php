@@ -11,14 +11,6 @@
           </span>
           Управление Категориями
         </h3>
-        <nav aria-label="breadcrumb">
-          <ul class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">
-              <span>Категории</span>
-              <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle pl-1"></i>
-            </li>
-          </ul>
-        </nav>
       </div>
 
       <div class="row">
@@ -37,25 +29,17 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th width="20%">#</th>
-                      <th width="30%">Название</th>
-                      <th width="30%">Цвет</th>
-                      <th width="20%">Управление</th>
+                      <th width="65%">Название</th>
+                      <th width="35%">Управление</th>
                     </tr>
                   </thead>
                   <tbody class="category-list">
                   <?php if (!empty($user_data['categories'])): ?>
                      <?php foreach ($user_data['categories'] as $category) : ?>
-                      <tr class="category-list__item" data-category-id="<?= $category["id"]; ?>">
-                        <td><?php echo $category["id"]; ?></td>
+                      <tr class="category-list__item" data-category-name="<?=$category["name"];?>" data-category-id="<?= $category["id"]; ?>">
                         <td><?php echo $category["name"]; ?></td>
                         <td>
-                          <div class="progress">
-                            <div class="progress-bar bg-gradient-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </td>
-                        <td>
-                          <button class="btn btn-outline-secondary btn-fw delete-category" type="button" data-category-id="<?= $category["id"]; ?>">Удалить</button>
+                          <button class="btn btn-gradient-danger btn-fw delete-category" type="button" data-category-id="<?= $category["id"]; ?>">Удалить</button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
@@ -81,10 +65,8 @@
                 <table class="table table-hover">
                   <thead>
                     <tr>
-                      <th>Номер</th>
-                      <th>Название</th>
-                      <th>Процент</th>
-                      <th>Управление</th>
+                      <th width="70%">Название</th>
+                      <th width="30%">Управление</th>
                     </tr>
                   </thead>
                   <tbody class="subcategory-list">
