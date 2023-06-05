@@ -47,3 +47,39 @@
   color: #A9A9A9;
   font-size: 30px;
 }
+
+.add-source__input-title-description {
+    margin-top: 35px;
+}
+
+#add-new-source {
+    margin-top: 35px;
+}
+
+@media (max-width: 576px) {
+    .add-source-card__title {
+        margin-bottom: 1rem !important;
+    }
+    .add-source__input-title-description {
+        margin-top: 15px;
+    }
+    #add-new-source {
+        margin-top: 25px;
+    }
+    .add-source__input {
+        font-size: 20px;
+    }
+    .add-source__input::placeholder {
+        font-size: 20px;
+    }
+    .grid-margin:not(.add-source-card) {
+        margin-bottom: 1.25rem;
+    }
+    .delete-source {
+        margin-top: 20px !important;
+    }
+    .source-error {
+        display: inline-block;
+        margin-top: 15px;
+    }
+}

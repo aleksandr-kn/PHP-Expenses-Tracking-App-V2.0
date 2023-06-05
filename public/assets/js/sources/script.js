@@ -39,14 +39,22 @@ $(document).ready(function () {
         source_to_delete_id: source_id,
       },
       success: function (result) {
-        var result = JSON.parse(result);
-       
+        var result = {};
+        try {
+          result = JSON.parse(result);
+        } catch {
+          UI.showAlert(
+            "Ошибка при удалении",
+            "bg-gradient-danger"
+          );
+        }
+        console.log(result)
         if (result.status == true) {
           window.location.reload(false); 
 
         } else {
           
-          $(".source-error").html("Ошибка при удалении, попробуйте позже.");
+          $(".source-error").html("Ошибка при удалении, проверьте что для данного источника нет добавленных расходов.");
         }
       },
     });
