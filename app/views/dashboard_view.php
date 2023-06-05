@@ -14,7 +14,7 @@
         <nav aria-label="breadcrumb">
           <ul class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page">
-              <span>Здесь добавляются новые расходы</span>
+              <span class="page-header__description">Здесь добавляются новые расходы</span>
               <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle pl-1"></i>
             </li>
           </ul>
@@ -86,7 +86,7 @@
                   <div class="add-spendings__input-wrap">
                     <input class="add-spendings__input" id="new_spending_amount" type="text" id="new-spending-amount" placeholder="0.00" required="required">
                   </div>
-                  <p class="add-spendings__input-title" style="margin-top: 35px;">
+                  <p class="add-spendings__input-title add-spendings__input-title-name">
                     Введите заметку
                   </p>
                   <div class="add-spendings__input-wrap">
@@ -107,7 +107,7 @@
                   </div>
 
                   <div class="subcategories-wrap">
-                    <p class="add-spendings__category-title" style="padding-top: 35px;">Выберете дополнительную категорию</p>
+                    <p class="add-spendings__category-title add-spendings__subcategory-title">Выберете дополнительную категорию</p>
                     <select id="new_spending_subcategory">
                       
                     </select>
