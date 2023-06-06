@@ -34,7 +34,7 @@ function create_new_category_element(
 
   new_category.onclick = function () {
     ///
-    display_category_settings({ id: $(this).data("category-id") });
+    display_category_settings({ id: $(this).data("category-id"), name: $(this).data("category-name") });
   };
   return new_category;
 }
