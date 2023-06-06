@@ -134,17 +134,20 @@ class Controller_Profile extends Controller
     }
   }
 
-  function action_add_category()
-  {
-    if (isset($_POST["new_category_name"])) {
-      $category_name = $_POST["new_category_name"];
-      $result = $this->model->add_category($category_name);
-      echo json_encode($result, JSON_UNESCAPED_UNICODE);
-    } else {
-      //to do
-      header('Location:/site_security/');
+  public function action_add_category() {
+        if (!isset($_POST["new_category_name"])) {
+            header('Location:/site_security/');
+            exit;
+        }
+        $category_name = $_POST["new_category_name"];
+        $result = $this->model->add_category($category_name);
+        // По умолчанию добавляем подкатегорию 'основная'
+        if ($result && isset($result['inserted_id'])) {
+            $this->model->add_subcategory('Основная', $result['inserted_id']);   
+        }
+
+        echo json_encode($result, JSON_UNESCAPED_UNICODE);
     }
-  }
 
   function action_delete_category()
   {
