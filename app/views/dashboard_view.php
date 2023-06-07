@@ -21,55 +21,6 @@
         </nav>
       </div>
       <div class="row">
-        <!-- <div class="col-md-4 stretch-card grid-margin">
-          <div class="card bg-gradient-danger card-img-holder text-white">
-            <div class="card-body">
-              <h4 class="card-title">Basic input groups</h4>
-              <p class="card-description"> Basic bootstrap input groups </p>
-              <div class="foralign-items-startm-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">руб.</span>
-                  </div>
-                  <input id="new_spending_amount" type="text" class="form-control" id="new-spending-amount" placeholder="Сумма" required="required">
-                  <div class="input-group-append">
-                    <span class="input-group-text">.00</span>
-                  </div>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text bg-gradient-primary text-white"><i class="mdi mdi-pencil"></i></span>
-                  </div>
-                  <input type="text" id="new_spending_name" class="form-control" id="new-spending-name" rows="1" placeholder="Заметка" required="required">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <select id="new_spending_category" class="form-control" >
-                    <?php if (isset($user_data["categories"])) foreach ($user_data["categories"] as $category) : ?>
-                      <option value="<?php echo $category['id']; ?>"><?php echo $category["name"]; ?></option>
-                    <?php endforeach ?>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <select id="new_spending_subcategory" class="form-control">
-                    <option value="2">Подкатегория 1</option>
-                  </select>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="input-group">
-                  <button id="add-new-spending" class="btn btn-primary" type="submit">Добавить</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div> -->
-
         <!-- Новая форма -->
         <div class="col-12 col-md-7 stretch-card grid-margin">
           <div class="card h-100 bg-gradient-danger card-img-holder text-white">
@@ -93,9 +44,7 @@
                     <input class="add-spendings__input" type="text" id="new_spending_name" class="form-control">
                   </div>
                 </div>
-                
                       
-
                 <div class="add-spendings__inner-right">
                   <div class="categories-wrap">
                     <p class="add-spendings__category-title">Выберете основную категорию</p>
@@ -105,16 +54,12 @@
                       <?php endforeach ?>
                     </select>
                   </div>
-
                   <div class="subcategories-wrap">
                     <p class="add-spendings__category-title add-spendings__subcategory-title">Выберете дополнительную категорию</p>
                     <select id="new_spending_subcategory">
-                      
                     </select>
                   </div>
-                  
                 </div>
-
               </div>
               
               <div class="form-group source-select">
@@ -124,13 +69,11 @@
                       <?php if (isset($user_data["sources"])) foreach ($user_data["sources"] as $source) : ?>
                         <a data-source-id="<?=$source['id']?>" class="source-select__btn btn btn-inverse-dark btn-sm <?= $source == $user_data["sources"][0] ? 'active' : 'notActive' ?>" data-toggle="fun"><?=$source['name']?></a>
                       <?php endforeach ?>
-                      
                     </div>
                     <input type="hidden" name="fun" id="fun">
                   </div>
                 </div>
               </div>
-
               <button type="button" id="add-new-spending" class="btn btn-inverse-dark btn-lg btn-block">Добавить новый расход</button>
             </div>
           </div>
@@ -263,10 +206,7 @@
             <button type="button" class="pagination-next btn btn-outline-dark" data-direction="next">Следующая</button>
           </div>
         </div>
-        
       </div>
-      
-      
     </div>
     <!-- content-wrapper ends -->
   </div>
