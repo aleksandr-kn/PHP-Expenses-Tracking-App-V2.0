@@ -270,6 +270,8 @@ class Model_Profile
 
   public function add_category($new_category_name)
   {
+    $new_category_name = trim($new_category_name);
+
     $id = $_SESSION['id'];
 
     // TODO
@@ -349,7 +351,7 @@ class Model_Profile
   public function get_subcategories($parent_id) {
     $db = create_connection();
     $res = $this->db->query("SELECT id, name FROM spending_subcategory WHERE parent_category = '$parent_id';");
-    $result = $res->fetchAll();
+    $result = $res->fetchAll(PDO::FETCH_ASSOC);
     if (!empty($result)) {
       $result['status'] = true;
     } else {
@@ -467,6 +469,12 @@ class Model_Profile
     $this->resultData["user_data"]["categories"] = $this->get_categories();
     $this->resultData["user_data"]["sources"] = $this->get_sources();
     $this->resultData["user_data"]["user_info"] = $this->get_user_info();
+
+    #Добавляем подкатегории сразу
+    $this->resultData["user_data"]["categories"] = array_map(function($item) {
+        $item['subcategories'] = $this->get_subcategories($item['id']);
+        return $item;
+    }, $this->resultData["user_data"]["categories"]);
 
     $this->resultData["user_data"]["min_max"] = $this->get_min_max_sum();
 

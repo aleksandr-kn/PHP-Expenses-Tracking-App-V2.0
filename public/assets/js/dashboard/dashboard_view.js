@@ -1,3 +1,123 @@
+class CategorySelector {
+    constructor(wrapperSelector, itemSelector) {
+        this.wrapper = document.querySelector(wrapperSelector, itemSelector);
+        this.items = Array.from(document.querySelectorAll(itemSelector));
+        this.selectedCategoryId = null;
+        this.selectedSubcategoryId = null;
+        this.selectedSubcategoryName = null;
+        this.selectedCategoryName = null;
+    }
+    initialize() {
+        this.items.map(item => {
+            item.addEventListener('click', (event) => {
+                this.handleItemClick(event.target);
+            })
+        })
+    }
+    setToDefault() {
+        this.selectedCategoryId = null;
+        this.selectedSubcategoryId = null;
+        this.selectedSubcategoryName = null;
+        this.selectedCategoryName = null;
+        this.unselectAllCategories();
+        this.hideSubcategories();
+    }
+    selectAll() {
+        this.items.map(item => {
+            item.classList.add('active');
+        })
+    }
+    unselectAllCategories() {
+        this.items.map(item => {
+            item.classList.remove('active');
+        })
+    }
+    hideSubcategories() {
+        const element = this.wrapper.querySelector('.add-spendings__category-subcategories');
+        if (element) {
+            element.removeEventListener('click', this.handleSubcategoryClick);
+            element.remove();
+        }
+    }
+    handleItemClick(item) {
+        const element = item.classList.contains('add-spendings__category-item') ? item : item.parentNode;
+        this.unselectAllCategories();
+        this.hideSubcategories();
+        if (element.dataset.id === this.selectedCategoryId) {
+            this.selectedCategoryId = null;
+            this.selectedCategoryName = null;
+            return;
+        }
+
+        element.classList.add('active');
+        this.selectedCategoryId = element.dataset.id;
+        this.selectedCategoryName = element.querySelector('.add-spendings__category-item-title').innerText;
+
+        this.displaySubcategories(this.selectedCategoryId);
+    }
+    displaySubcategories(id) {
+        const element = this.items.find(item => item.dataset.id === id);
+        const elementIndex = this.items.findIndex(item => item.dataset.id === id);
+        const subcategories = JSON.parse(element.dataset.subcategories);
+
+        // Вместительность каждой строки
+        const rowSize = this.wrapper.offsetWidth / (this.items[0].offsetWidth + 10);
+
+        // Текущая строка
+        const currentRowNum = Math.floor((elementIndex + 1) / rowSize) + 1;
+        // Элемент после которого нужно вставить элемент подкатегорий
+        const lastItemInRow = this.items.slice(0, (currentRowNum * rowSize)).pop();
+        // Пришлось юзать jquery для insert after
+        $(this.createSubcategoriesElement(subcategories)).insertAfter(lastItemInRow);
+        this.wrapper.querySelector('.add-spendings__category-subcategories').addEventListener('click', (event) => {
+            this.handleSubcategoryClick(event);
+        });
+    }
+    unselectAllSubcategories() {
+        const subcatsWrapper = this.wrapper.querySelector('.add-spendings__category-subcategories');
+        if (subcatsWrapper) {
+            Array.from(subcatsWrapper.children).map(subcatItem => {
+                subcatItem.classList.remove('active');
+            })
+        }
+    }
+    handleSubcategoryClick(event) {
+        this.unselectAllSubcategories();
+        this.selectedSubcategoryId = null;
+        this.selectedSubcategoryName = null;
+        const element = event.target;
+        const subcategoryItem = element.classList.contains('.add-spendings__category-subcategories-item') ? element : element.closest('.add-spendings__category-subcategories-item');
+
+        subcategoryItem.classList.add('active');
+        this.selectedSubcategoryId = subcategoryItem.dataset.id;
+        this.selectedSubcategoryName = subcategoryItem.querySelector('.add-spendings__category-subcategories-item-text').innerText;
+    }
+    createSubcategoriesElement(subcategories) {
+        let result = "<div class='add-spendings__category-subcategories'>";
+        subcategories.map(subcat => {
+            result += `
+                <div class='add-spendings__category-subcategories-item' data-id='${subcat.id}'>
+                    <span class="add-spendings__category-subcategories-item-check-wrapper">
+                        <i class="mdi mdi-check add-spendings__category-subcategories-item-check"></i>    
+                    </span>
+                    <span class="add-spendings__category-subcategories-item-text">${subcat.name}</span>
+                </div>
+            `;
+        })
+        result += "</div>";
+        return result;
+    }
+    getSelected() {
+        return {
+            categoryId: this.selectedCategoryId,
+            categoryName: this.selectedCategoryName,
+            subcategoryId: this.selectedSubcategoryId,
+            subcategoryName: this.selectedSubcategoryName,
+        };
+    }
+}
+
+
 function get_current_date() {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, "0");
@@ -9,24 +129,20 @@ function get_current_date() {
   return today;
 }
 
-function add_new_spending() {
-  current_spending_category_id = $("#new_spending_category").val();
+function add_new_spending(categorySelector) {
+  const categoryData = categorySelector.getSelected();  
+  current_spending_category_id = categoryData.categoryId;
+  current_spending_category_name = categoryData.categoryName;
+  current_spending_subcategory_id = categoryData.subcategoryId;
+  current_spending_subcategory_name = categoryData.subcategoryName;
+
   current_spending_amount = $("#new_spending_amount").val();
   current_spending_name = $("#new_spending_name").val();
-
-  current_spending_category_name = $(
-    "#new_spending_category option:selected"
-  ).text();
 
   current_spendings_source_id = $(".source-select__btn.active").data(
     "source-id"
   );
   current_spendings_source_name = $(".source-select__btn.active").text();
-
-  current_spending_subcategory_id = $("#new_spending_subcategory").val();
-  current_spending_subcategory_name = $(
-    "#new_spending_subcategory option:selected"
-  ).text();
 
   $.ajax({
     type: "POST",
@@ -74,10 +190,9 @@ function add_new_spending() {
     },
   });
 
-  $("#new_spending_category").val("");
+  categorySelector.setToDefault();
   // $("#new_spending_category").val("26").change();
 
-  $("#new_spending_subcategory").val("");
   $("#new_spending_name").val("");
   $("#new_spending_amount").val("");
 }
@@ -578,9 +693,11 @@ function load_spendings_for_current_page(e) {
 }
 
 $(document).ready(function () {
+    const categoriesSelector = new CategorySelector('.add-spendings__category-slide', '.add-spendings__category-item');
+    categoriesSelector.initialize();
   //add spending
   $("#add-new-spending").click(function () {
-    add_new_spending();
+    add_new_spending(categoriesSelector);
   });
 
   //Delete spending
@@ -604,11 +721,11 @@ $(document).ready(function () {
   display_subcategories({
     parent_category_id: $("#new_spending_category").children().first().val(),
   });
-  document
-    .getElementById("new_spending_category")
-    .addEventListener("change", function () {
-      display_subcategories({ parent_category_id: this.value });
-    });
+//   document
+//     .getElementById("new_spending_category")
+//     .addEventListener("change", function () {
+//       display_subcategories({ parent_category_id: this.value });
+//     });
 
   var today = new Date().toISOString().slice(0, 10);
 

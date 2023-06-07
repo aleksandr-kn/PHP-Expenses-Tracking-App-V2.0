@@ -22,7 +22,7 @@
       </div>
       <div class="row">
         <!-- Новая форма -->
-        <div class="col-12 col-md-7 stretch-card grid-margin">
+        <div class="col-12 stretch-card grid-margin">
           <div class="card h-100 bg-gradient-danger card-img-holder text-white">
             <div class="card-body add-spendings">
               <h3 class="font-weight-normal mb-3 add-spendings__title">
@@ -46,23 +46,24 @@
                 </div>
                       
                 <div class="add-spendings__inner-right">
-                  <div class="categories-wrap">
-                    <p class="add-spendings__category-title">Выберете основную категорию</p>
-                    <select id="new_spending_category">
-                      <?php if (isset($user_data["categories"])) foreach ($user_data["categories"] as $category) : ?>
-                        <option value="<?php echo $category['id']; ?>"><?php echo $category["name"]; ?></option>
-                      <?php endforeach ?>
-                    </select>
-                  </div>
-                  <div class="subcategories-wrap">
-                    <p class="add-spendings__category-title add-spendings__subcategory-title">Выберете дополнительную категорию</p>
-                    <select id="new_spending_subcategory">
-                    </select>
-                  </div>
+                    <div class="add-spendings__category-slide">
+                        <?php if (isset($user_data["categories"])) foreach ($user_data["categories"] as $category) : ?>
+                        <?php unset($category['subcategories']['status']); ?>
+                        <div class="add-spendings__category-item" data-id=<?=$category['id']?> 
+                            data-subcategories='<?= json_encode($category['subcategories']) ?>'>
+                            <div class="add-spendings__category-item-image">
+                                <?= mb_substr($category['name'],0,2); ?>
+                            </div>
+                            <div class="add-spendings__category-item-title">
+                                <?= $category["name"]; ?>
+                            </div>
+                        </div>
+                        <?php endforeach ?>
+                    </div>
                 </div>
               </div>
               
-              <div class="form-group source-select">
+              <div class="form-group source-select w-100">
                 <div class="col-12 source-select__wrap">
                   <div class="input-group">
                     <div id="radioBtn" class="btn-group">
