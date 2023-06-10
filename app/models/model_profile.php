@@ -340,7 +340,7 @@ class Model_Profile
     // Проверяем что это не последняя подкатегория
     if ($this->db->query("SELECT COUNT(*) FROM spending_subcategory WHERE parent_category = (SELECT parent_category FROM spending_subcategory WHERE id = '$subcategory_id');")->fetchColumn() > 1 &&
       is_int($subcategory_id) &&
-      $this->db->query("DELETE FROM spending_subcategory WHERE id = '{$subcategory_id}';")->rowCount()) {
+      $this->db->query("DELETE FROM spending_subcategory WHERE is_main = 0 AND id = '{$subcategory_id}';")->rowCount()) {
       $result['status'] = true;
     } else {
       $result['status'] = false;
