@@ -123,6 +123,48 @@ function create_new_spending_element(
   return new_spending;
 }
 
+function createMobileSpendingElement(
+    current_spending_amount,
+    current_date,
+    current_spending_name,
+    current_spending_category_name,
+    current_spending_subcategory_name,
+    current_spending_id,
+    current_spendings_source_name
+) {
+    return `
+    <div class="spendings-list__item" data-spending-id="${current_spending_id}">
+        <div class="spendings-list__item-left">
+            <div class="spendings-list__item-image">
+                ${current_spending_category_name.slice(0,2)}
+            </div>
+            <div class="spendings-list__item-data">
+                <div class="spendings-list__item-category">
+                    ${current_spending_category_name} ${current_spending_subcategory_name==='Основная' ? '' : ' / ' + current_spending_subcategory_name}
+                </div>
+                <div class="spendings-list__item-source">
+                    ${current_spendings_source_name}
+                </div>
+                <div class="spendings-list__item-date">
+                    ${current_date}
+                </div>
+                <div class="spendings-list__item-description">
+                    ${current_spending_name}
+                </div>
+            </div>
+        </div>
+        <div class="spendings-list__item-right">
+            <div class="spendings-list__item-sum">
+                ${current_spending_amount} Р.
+            </div>
+            <div class="spendings-list__item-delete">
+                Удалить
+            </div>
+        </div>
+    </div>
+    `;
+}
+
 function delete_spending(current_spending_id) {
   $.ajax({
     type: "POST",
@@ -133,9 +175,8 @@ function delete_spending(current_spending_id) {
     success: function (result) {
       var result = JSON.parse(result);
       if (result.status == true) {
-        $(
-          '.spending-item[data-spending-id="' + current_spending_id + '"]'
-        ).remove();
+        $('.spending-item[data-spending-id="' + current_spending_id + '"]').remove();
+        $('.spendings-list__item[data-spending-id="' + current_spending_id + '"]').remove();
         UI.showAlert("Успешно удалено", "bg-gradient-success");
         // Would've been much easier with promises i guess ???
         get_this_week_spendings();

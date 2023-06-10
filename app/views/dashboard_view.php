@@ -145,7 +145,51 @@
         </div>
       </div>
       
-      <div class="row">
+                    
+        <div class="row desktop-hidden">
+            <div class="col-12 grid-margin">
+                <div class="spendings-list">
+                    <h5 class="spendings-list__title">
+                        Последние расходы
+                    </h5>
+                    <div class="spendings-list__items">
+                        <?php if (!empty($user_data['spendings'])) foreach ($user_data['spendings'] as $spending) : ?>
+                        <div class="spendings-list__item" data-spending-id="<?= $spending["id"]; ?>">
+                            <div class="spendings-list__item-left">
+                                <div class="spendings-list__item-image">
+                                    <?= mb_substr($spending['category_name'],0,2); ?>
+                                </div>
+                                <div class="spendings-list__item-data">
+                                    <div class="spendings-list__item-category">
+                                        <?= $spending['category_name'] ?>
+                                    </div>
+                                    <div class="spendings-list__item-source">
+                                        <?= $spending['source_name'] ?>
+                                    </div>
+                                    <div class="spendings-list__item-date">
+                                        <?= $spending['spending_date'] ?>
+                                    </div>
+                                    <div class="spendings-list__item-description">
+                                        <?= $spending['name'] ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spendings-list__item-right">
+                                <div class="spendings-list__item-sum">
+                                    <?= $spending['sum'] ?> Р.
+                                </div>
+                                <div class="spendings-list__item-delete">
+                                    Удалить
+                                </div>
+                            </div>
+                        </div>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <div class="row mobile-hidden">
         <div class="col-12 grid-margin">
           <div class="card">
             <div class="card-body">
@@ -199,7 +243,7 @@
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mobile-hidden">
         <div class="col-12 d-flex justify-content-center grid-margin pagination">
           <div class="btn-group " role="group" aria-label="Basic example">
             <button type="button" class="pagination-prev btn btn-outline-dark <?= $user_data["current_page"] === 1 ? "disabled" : ""?>" data-direction="prev">Предыдущая</button>

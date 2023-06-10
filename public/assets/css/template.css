@@ -48,6 +48,17 @@
 }
 
 @media (max-width: 991px) {
+    .mobile-hidden {
+        display: none;
+    }
+}
+@media (min-width: 992px) {
+    .desktop-hidden {
+        display: none;
+    }
+}
+
+@media (max-width: 991px) {
     .navbar__desktop-toggler {
         display: none;
     }

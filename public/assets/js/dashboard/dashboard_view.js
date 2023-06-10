@@ -168,7 +168,7 @@ function add_new_spending(categorySelector) {
       }
       if (jsonResponse && jsonResponse.status == true) {
         current_date = get_current_date();
-        current_spending_id = result.inserted_id;
+        current_spending_id = jsonResponse.inserted_id;
 
         new_spending = create_new_spending_element(
           current_spending_amount,
@@ -179,8 +179,18 @@ function add_new_spending(categorySelector) {
           current_spending_id,
           current_spendings_source_name
         );
+        new_spedning_mobile = createMobileSpendingElement(
+            current_spending_amount,
+            current_date,
+            current_spending_name,
+            current_spending_category_name,
+            current_spending_subcategory_name,
+            current_spending_id,
+            current_spendings_source_name
+        );
         UI.showAlert("Успешно добавлено", "bg-gradient-success");
         $(".all-spendings-list").prepend(new_spending);
+        $(".spendings-list__items").prepend(new_spedning_mobile);
         get_this_week_spendings();
       } else {
         $("#spendings-error").html("Ошибка при добавлении, попробуйте позже.");
@@ -694,6 +704,12 @@ function load_spendings_for_current_page(e) {
   });
 }
 
+function handleSpendingDeleteMobile(event) {
+    const target = event.target.classList.contains('spendings-list__item') ? event.target : event.target.closest('.spendings-list__item');
+    const spendingId = $(target).data('spending-id');
+    delete_spending(spendingId);
+}
+
 $(document).ready(function () {
     const categoriesSelector = new CategorySelector('.add-spendings__category-slide', '.add-spendings__category-item');
     categoriesSelector.initialize();
@@ -752,4 +768,7 @@ $(document).ready(function () {
   document.querySelector(".pagination").addEventListener("click", function (e) {
     load_spendings_for_current_page(e);
   });
+
+    // Удаление расходов на мобиле
+    $('.spendings-list__items').on('click', handleSpendingDeleteMobile)
 });

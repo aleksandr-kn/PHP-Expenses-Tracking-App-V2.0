@@ -178,6 +178,81 @@
     color: #fff
 }
 
+.spendings-list {
+    background-color: #fff;
+    border-radius: 5px;
+}
+.spendings-list__title {
+    color: #343a40;
+    margin-bottom: 0.75rem;
+    text-transform: capitalize;
+    font-family: "ubuntu-medium", sans-serif;
+    font-size: 1.125rem;    font-size: 1.125rem;
+    padding: 20px;
+    margin-bottom: 0;
+}
+.spendings-list__item {
+    color: #3e4b5b;;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 10px 15px 15px;
+}
+.spendings-list__item-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.spendings-list__item-right {
+    text-align: right;
+}
+.spendings-list__item-image {
+    background-color: #f2edf3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+}
+.spendings-list__item-data {
+    margin-left: 15px;
+}
+.spendings-list__item-category {
+    margin-bottom: 3px;
+}
+.spendings-list__item-source {
+    font-size: 14px;
+    color: #7c8fa6;
+    line-height: 19px;
+    margin-bottom: 3px;
+}
+.spendings-list__item-date {
+    font-size: 14px;
+    color: #7c8fa6;
+    line-height: 19px;
+    margin-bottom: 5px;
+}
+.spendings-list__item-description {
+    font-size: 14px;
+    background-color: #f2edf3;
+    line-height: 19px;
+    border-radius: 6px;
+    padding: 5px 10px;
+    display: inline-block;
+}
+.spendings-list__item-sum {
+    white-space: nowrap;
+    font-size: 19px;
+}
+.spendings-list__item-delete {
+    cursor: pointer;
+    color: #90caf9;
+    margin-top: 10px;
+    font-size: 14px;
+}
+
 @media (max-width: 575px) {
     .add-spendings__input {
         font-size: 20px;
