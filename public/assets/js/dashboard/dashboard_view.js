@@ -72,6 +72,8 @@ class CategorySelector {
         this.wrapper.querySelector('.add-spendings__category-subcategories').addEventListener('click', (event) => {
             this.handleSubcategoryClick(event);
         });
+        // Селектим основную подкатегорию
+        document.querySelector(".add-spendings__category-subcategories-item[data-is-main='1']")?.click();
     }
     unselectAllSubcategories() {
         const subcatsWrapper = this.wrapper.querySelector('.add-spendings__category-subcategories');
@@ -96,7 +98,7 @@ class CategorySelector {
         let result = "<div class='add-spendings__category-subcategories'>";
         subcategories.map(subcat => {
             result += `
-                <div class='add-spendings__category-subcategories-item' data-id='${subcat.id}'>
+                <div class='add-spendings__category-subcategories-item' data-id='${subcat.id}' data-is-main='${subcat.is_main}'>
                     <span class="add-spendings__category-subcategories-item-check-wrapper">
                         <i class="mdi mdi-check add-spendings__category-subcategories-item-check"></i>    
                     </span>

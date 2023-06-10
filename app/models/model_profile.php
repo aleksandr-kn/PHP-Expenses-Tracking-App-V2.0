@@ -350,7 +350,7 @@ class Model_Profile
 
   public function get_subcategories($parent_id) {
     $db = create_connection();
-    $res = $this->db->query("SELECT id, name FROM spending_subcategory WHERE parent_category = '$parent_id';");
+    $res = $this->db->query("SELECT id, name, is_main FROM spending_subcategory WHERE parent_category = '$parent_id';");
     $result = $res->fetchAll(PDO::FETCH_ASSOC);
     if (!empty($result)) {
       $result['status'] = true;
