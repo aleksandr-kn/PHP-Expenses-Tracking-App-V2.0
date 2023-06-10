@@ -498,6 +498,7 @@ class Model_Profile
     $percentage_difference_average_sum = $this->pct_change($last_week_average_sum, $this_week_average_sum);
     $this->resultData["user_data"]["percentage_difference_average_sum"] = abs($percentage_difference_average_sum);
     $this->resultData["user_data"]["percentage_difference_average_sum_status"] = $this->spendings_change_status($percentage_difference_average_sum);
+    $this->resultData["user_data"]["show_percentage_difference_average_sum"] = boolval($last_week_average_sum);
 
     //quantity of spendings this week
     $this_week_spendings_quantity = $this->get_spendings_quantity($this_week_spendings);
@@ -508,11 +509,13 @@ class Model_Profile
     $this->resultData["user_data"]["percentage_difference_quantity"] = abs($percentage_difference_quantity);
     $this->resultData["user_data"]["this_week_spendings_quantity"] = $this_week_spendings_quantity;
     $this->resultData["user_data"]["percentage_difference_quantity_status"] = $this->spendings_change_status($percentage_difference_quantity);
+    $this->resultData["user_data"]["show_percentage_difference_quantity"] = boolval($last_week_spendings_quantity);
 
     //amount info
     $percentage_difference_amount = $this->pct_change($last_week_spendings_sum, $this_week_spendings_sum);
     $this->resultData["user_data"]["percentage_difference_amount"] = abs($percentage_difference_amount);
     $this->resultData["user_data"]["percentage_difference_amount_status"] = $this->spendings_change_status($percentage_difference_amount);
+    $this->resultData["user_data"]["show_percentage_difference_amount"] = boolval($last_week_spendings_sum);
 
     $this->resultData["user_data"]["current_page"] = 1;
 

@@ -110,8 +110,10 @@
                 Недельные расходы
                 <i class="mdi mdi-chart-line mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5"><?= $user_data['this_week_spendings_sum'] ?> руб</h2>
-              <h6 class="card-text"><?= $user_data["percentage_difference_amount_status"] ?> на <?= $user_data["percentage_difference_amount"] ?> %</h6>
+              <h2 class="mb-5"><?= $user_data['this_week_spendings_sum'] ?> Р.</h2>
+              <?php if ($user_data["show_percentage_difference_amount"]): ?>
+                  <h6 class="card-text"><?= $user_data["percentage_difference_amount_status"] ?> на <?= $user_data["percentage_difference_amount"] ?> %</h6>    
+              <?php endif; ?>  
             </div>
           </div>
         </div>
@@ -125,7 +127,9 @@
                 <i class="mdi mdi-bookmark-outline mdi-24px float-right"></i>
               </h4>
               <h2 class="mb-5"><?= $user_data["this_week_spendings_quantity"] ?></h2>
-              <h6 class="card-text"><?= $user_data["percentage_difference_quantity_status"] ?> на <?= $user_data["percentage_difference_quantity"] ?> %</h6>
+              <?php if ($user_data["show_percentage_difference_quantity"]): ?>
+                  <h6 class="card-text"><?= $user_data["percentage_difference_quantity_status"] ?> на <?= $user_data["percentage_difference_quantity"] ?> %</h6>
+              <?php endif; ?>
             </div>
           </div>
         </div>
@@ -138,8 +142,10 @@
                 Средний чек на этой неделе
                 <i class="mdi mdi-diamond mdi-24px float-right"></i>
               </h4>
-              <h2 class="mb-5"><?= $user_data["this_week_average_sum"] ?> руб</h2>
-              <h6 class="card-text">Изменился на <?= $user_data["percentage_difference_average_sum"] ?> %</h6>
+              <h2 class="mb-5"><?= $user_data["this_week_average_sum"] ?> Р.</h2>
+              <?php if ($user_data["show_percentage_difference_average_sum"]): ?>
+                  <h6 class="card-text">Изменился на <?= $user_data["percentage_difference_average_sum"] ?> %</h6>
+              <?php endif; ?>
             </div>
           </div>
         </div>
