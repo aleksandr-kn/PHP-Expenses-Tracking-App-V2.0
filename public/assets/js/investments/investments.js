@@ -82,9 +82,8 @@ $(document).ready(() => {
     }
 
     // Обработка инпута тикера с задержкой
-    let fetching = false;
     const handleTickerInputDebounce = debounce((context) => {
-        if (context.value.length < 3 || fetching) {
+        if (context.value.length < 3) {
             return;
         }
 

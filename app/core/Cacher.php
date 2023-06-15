@@ -34,9 +34,9 @@ class Cacher {
         $name_metaphone = strtoupper(metaphone($inputName));
         $abr_name_metaphone = strtoupper(metaphone(abbreviate($inputName)));
 
-        $name_metaphone_sql = '%'.$name_metaphone.'%';
-        $abr_name_metaphone_sql = '%'.$abr_name_metaphone.'%';
-        $stmt = $this->db->prepare("SELECT id, symbol, region, currency, name FROM tickers_cache WHERE name_metaphone LIKE ? OR abr_name_metaphone LIKE ? LIMIT 15");
+        $name_metaphone_sql = $name_metaphone;
+        $abr_name_metaphone_sql = $abr_name_metaphone;
+        $stmt = $this->db->prepare("SELECT id, symbol, region, currency, name FROM tickers_cache WHERE name_metaphone = ? OR abr_name_metaphone = ? LIMIT 15");
         $stmt->execute([$name_metaphone_sql, $abr_name_metaphone_sql]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
