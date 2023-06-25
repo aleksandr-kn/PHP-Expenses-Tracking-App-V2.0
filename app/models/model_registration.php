@@ -113,8 +113,8 @@ class Model_Registration extends Model
           $lastInsertedId = $this->db->lastInsertId() + ($res->rowCount() - 1);
 
           for ($currentId = $firstInsertedId; $currentId <= $lastInsertedId; $currentId++) {
-            $this->db->query("INSERT INTO spending_subcategory(parent_category, name)
-                            VALUES ('$currentId', 'Основная');" );
+            $this->db->query("INSERT INTO spending_subcategory(parent_category, name, is_main)
+                            VALUES ('$currentId', 'Основная', 1);" );
           }
 
           //Creating default spending sources

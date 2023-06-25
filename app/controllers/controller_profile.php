@@ -143,7 +143,7 @@ class Controller_Profile extends Controller
         $result = $this->model->add_category($category_name);
         // По умолчанию добавляем подкатегорию 'основная'
         if ($result && isset($result['inserted_id'])) {
-            $this->model->add_subcategory('Основная', $result['inserted_id']);   
+            $this->model->add_subcategory('Основная', $result['inserted_id'], 1);   
         }
 
         echo json_encode($result, JSON_UNESCAPED_UNICODE);

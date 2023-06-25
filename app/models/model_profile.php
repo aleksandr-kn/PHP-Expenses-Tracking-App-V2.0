@@ -300,13 +300,13 @@ class Model_Profile
     return $result;
   }
 
-  public function add_subcategory($new_subcategory_name, $new_subcategory_parent_id)
+  public function add_subcategory($new_subcategory_name, $new_subcategory_parent_id, $is_main = 0)
   {
     // $new_subcategory_name = pg_escape_string($new_subcategory_name);
     // TOOD prepare statements
     $new_subcategory_parent_id = (int)$new_subcategory_parent_id;
 
-    $resource = $this->db->query("INSERT INTO spending_subcategory(parent_category, name) VALUES ('$new_subcategory_parent_id', '$new_subcategory_name')");
+    $resource = $this->db->query("INSERT INTO spending_subcategory(parent_category, name, is_main) VALUES ('$new_subcategory_parent_id', '$new_subcategory_name', '$is_main')");
     if ($resource->rowCount()) {
       $result['status'] = true;
       $result["inserted_id"] = $this->db->lastInsertId();
