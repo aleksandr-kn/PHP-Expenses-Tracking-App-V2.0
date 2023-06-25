@@ -8,14 +8,6 @@
                 <h3 class="page-title">
                     Управление инвестициями
                 </h3>
-                <nav aria-label="breadcrumb">
-                    <ul class="breadcrumb">
-                        <li class="breadcrumb-item active" aria-current="page">
-                            <span>Категории</span>
-                            <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle pl-1"></i>
-                        </li>
-                    </ul>
-                </nav>
             </div>
 
             <!-- Форма добавления новых инвестиций -->

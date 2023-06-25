@@ -117,7 +117,7 @@
                   <div class=""></div>
                 </div>
               </div>
-              <h4 class="card-title">Bar chart</h4>
+              <h4 class="card-title">Столбчатая диаграмма</h4>
               <canvas id="barChart" style="height: 204px; display: block; width: 409px;" width="409" height="204" class="chartjs-render-monitor"></canvas>
             </div>
           </div>
@@ -133,7 +133,7 @@
                   <div class=""></div>
                 </div>
               </div>
-              <h4 class="card-title">Doughnut chart</h4>
+              <h4 class="card-title">Круговая диаграмма</h4>
               <canvas id="doughnutChart" style="height: 204px; display: block; width: 409px;" width="409" height="204" class="chartjs-render-monitor"></canvas>
             </div>
           </div>

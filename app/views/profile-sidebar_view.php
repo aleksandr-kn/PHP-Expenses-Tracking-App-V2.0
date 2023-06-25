@@ -20,6 +20,12 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="/investments">
+        <span class="menu-title">Инвестиции</span>
+        <i class="mdi mdi-finance menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="/profile/categories">
         <span class="menu-title">Категории</span>
         <i class="mdi mdi-contacts menu-icon"></i>
@@ -41,12 +47,6 @@
       <a class="nav-link" href="/profile/settings">
         <span class="menu-title">Настройки</span>
         <i class="mdi mdi-format-list-bulleted menu-icon"></i>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/investments">
-        <span class="menu-title">Инвестиции</span>
-        <i class="mdi mdi-finance menu-icon"></i>
       </a>
     </li>
 
