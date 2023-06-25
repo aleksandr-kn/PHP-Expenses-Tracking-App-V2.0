@@ -36,14 +36,14 @@ class Cacher {
 
         $name_metaphone_sql = $name_metaphone;
         $abr_name_metaphone_sql = $abr_name_metaphone;
-        $stmt = $this->db->prepare("SELECT id, symbol, region, currency, name FROM tickers_cache WHERE name_metaphone = ? OR abr_name_metaphone = ? LIMIT 15");
-        $stmt->execute([$name_metaphone_sql, $abr_name_metaphone_sql]);
+        $stmt = $this->db->prepare("SELECT id, symbol, region, currency, name FROM tickers_cache WHERE name_metaphone LIKE ? OR abr_name_metaphone LIKE ? or name LIKE ? LIMIT 15");
+        $stmt->execute([$name_metaphone_sql."%", $abr_name_metaphone_sql."%", "%$inputName%"]);
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         //Сортируем результат по уровню соответствия введенному название
-        usort($result, function($a, $b) use ($name_metaphone) {
-            $a_levenstein = levenshtein($name_metaphone, $a['name']);
-            $b_levenstein = levenshtein($name_metaphone, $b['name']);
+        usort($result, function($a, $b) use ($inputName) {
+            $a_levenstein = levenshtein($inputName, $a['name']);
+            $b_levenstein = levenshtein($inputName, $b['name']);
             return $a_levenstein - $b_levenstein;
         });
         return $result;
