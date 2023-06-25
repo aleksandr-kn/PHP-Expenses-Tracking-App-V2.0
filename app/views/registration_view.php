@@ -25,14 +25,8 @@
               <input type="password" name="confirm_password" class="form-control form-control-lg" placeholder="Подтверждение пароля">
               <span class="help-block text-danger"><?php echo isset($errors['confirm_password_err']) ? $errors['confirm_password_err'] : ''; ?></span>
             </div>
-            <div class="mb-4">
-              <div class="form-check">
-                <label class="form-check-label text-muted">
-                  <input type="checkbox" class="form-check-input"> Я соглашаюсь на использования файлов Cookie. <i class="input-helper"></i></label>
-              </div>
-            </div>
             <div class="mt-3">
-              <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN UP</button>
+              <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">ЗАРЕГЕСТРИРОВАТЬСЯ</button>
             </div>
             <div class="text-center mt-4 font-weight-light"> Уже Зарегестрировались? <a href="/login/" class="text-primary">Войти</a>
             </div>
