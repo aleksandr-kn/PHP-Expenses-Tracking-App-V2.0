@@ -1,3 +1,8 @@
+.no-x-padding {
+    padding-left: 0;
+    padding-right: 0;
+}
+
 .investments-added-list {
     margin: 0;
 }

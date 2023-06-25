@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     let tickerDates = [];
     let tickerValues = [];
-    for (const [key, value] of Object.entries(window.tickerHistoricalData)) {
+    for (const [key, value] of Object.entries(window.tickerHistoricalData).reverse().slice(0, 10)) {
         tickerValues.push(value['close']);
         tickerDates.push(key);
     }
@@ -15,7 +15,7 @@ $(document).ready(function () {
     new Chart(
         document.querySelector('#ticker-chart-canvas'),
         {
-            type: 'bar',
+            type: 'line',
             data: {
                 labels: tickerDates,
                 datasets: [
@@ -34,6 +34,13 @@ $(document).ready(function () {
                 title: {
                     display: true,
                     text: 'График на бирже'
+                },
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            display: false //this will remove only the label
+                        }
+                    }]
                 }
             }
         }
