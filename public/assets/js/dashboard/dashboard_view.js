@@ -755,12 +755,12 @@ $(document).ready(function () {
   });
 
   //amount input control
-  var amountRegex = /^0$|^[1-9][0-9]*$/;
+  var amountRegex = /^(?!0\d)\d+(\.\d{1,2})?$/;
   $("#new_spending_amount").on("keyup", function () {
     val = $(this).val();
     if ((amountRegex.test(val) && val > 0) || val == "") {
     } else {
-      $(this).val(0);
+      $(this).val('');
     }
   });
 

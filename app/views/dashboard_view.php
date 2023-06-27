@@ -35,7 +35,7 @@
                     Сколько вы потратили? 
                   </p>
                   <div class="add-spendings__input-wrap">
-                    <input class="add-spendings__input" id="new_spending_amount" type="text" id="new-spending-amount" placeholder="0.00" required="required">
+                    <input class="add-spendings__input" id="new_spending_amount" type="number" id="new-spending-amount" placeholder="0.00" required="required">
                   </div>
                   <p class="add-spendings__input-title add-spendings__input-title-name">
                     Введите заметку
