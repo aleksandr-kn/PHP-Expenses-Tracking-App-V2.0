@@ -94,8 +94,9 @@ $(document).ready(() => {
             .done(function(data) {
                 emptySuggestedItems();
 
-                const result = $.parseJSON(data);
+                let result = $.parseJSON(data);
                 if (result.length) {
+                    result = result.filter(item => item.symbol.indexOf('.') === -1);
                     populateSuggestemItems(result);
                 }
             })
